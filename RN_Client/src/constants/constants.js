@@ -4,8 +4,7 @@ const fontMainRegular = 'Roboto-Regular';
 const fontMainMedium = 'Roboto-Medium';
 const fontMainBold = 'Roboto-Bold';
 
-const { width } = Dimensions.get('window');
-const { height } = Dimensions.get('window');
+const { width, height } = Dimensions.get('window');
 
 const types = {
   typeСlothes: {

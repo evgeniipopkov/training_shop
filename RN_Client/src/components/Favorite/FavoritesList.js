@@ -1,13 +1,12 @@
-/* eslint-disable react/prop-types */
 import React, { useContext } from 'react';
 import { FlatList } from 'react-native';
 
-import Empty from './Empty';
+import Empty from '../General/Empty';
 import FavoritesListItem from './FavoritesListItem';
-import productsContext from '../context/products/productsContext';
+import context from '../../context/context';
 
 const FavoritesList = ({ header }) => {
-  const { favoriteProducts, removeFavorite } = useContext(productsContext);
+  const { favoriteProducts, removeFavorite } = useContext(context);
 
   const renderItem = ({ item }) => (
     <FavoritesListItem

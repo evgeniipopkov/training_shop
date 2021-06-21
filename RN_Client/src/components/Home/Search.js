@@ -1,13 +1,12 @@
-/* eslint-disable react/prop-types */
 import React from 'react';
 import {
   TextInput, View, StyleSheet, Pressable, Keyboard, TouchableOpacity,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
-import colors from '../constants/colors';
-import constants from '../constants/constants';
-import strings from '../constants/strings';
+import colors from '../../constants/colors';
+import constants from '../../constants/constants';
+import strings from '../../constants/strings';
 
 const Search = ({ value, setValue }) => {
   const clean = () => {
@@ -40,7 +39,7 @@ const Search = ({ value, setValue }) => {
               <Icon
                 name="close-outline"
                 size={27}
-                color={colors.blueMagenta}
+                color={colors.main}
               />
             </TouchableOpacity>
           )
@@ -53,12 +52,12 @@ const Search = ({ value, setValue }) => {
 const styles = StyleSheet.create({
   container: {
     paddingVertical: 25,
-    backgroundColor: colors.white,
+    backgroundColor: colors.background,
   },
   borderContainer: {
     flexDirection: 'row',
     borderRadius: 20,
-    backgroundColor: colors.whiteSmoke,
+    backgroundColor: colors.innerBackgroud,
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingHorizontal: 18,
@@ -69,7 +68,7 @@ const styles = StyleSheet.create({
   },
   input: {
     fontFamily: constants.fontMainRegular,
-    color: colors.blueMagenta,
+    color: colors.main,
     fontSize: 16,
     paddingLeft: 15,
     width: '80%',

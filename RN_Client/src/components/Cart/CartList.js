@@ -1,12 +1,11 @@
-/* eslint-disable react/prop-types */
 import React, { useContext } from 'react';
 import { FlatList, StyleSheet } from 'react-native';
 
 import CartListItem from './CartListItem';
-import productsContext from '../context/products/productsContext';
+import context from '../../context/context';
 
 const CartList = ({ header }) => {
-  const { cartProducts, removeCart } = useContext(productsContext);
+  const { cartProducts, removeCart } = useContext(context);
 
   const renderItem = ({ item }) => (
     <CartListItem

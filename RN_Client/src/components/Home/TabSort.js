@@ -1,12 +1,11 @@
-/* eslint-disable react/prop-types */
 import React from 'react';
 import {
   Text, View, StyleSheet, TouchableOpacity,
 } from 'react-native';
-import colors from '../constants/colors';
-import constants from '../constants/constants';
 
-import strings from '../constants/strings';
+import colors from '../../constants/colors';
+import constants from '../../constants/constants';
+import strings from '../../constants/strings';
 
 const {
   ALL_CLOTHES, DRESS_CLOTHES, HOODY_CLOTHES, SHOES_CLOTHES,
@@ -47,7 +46,7 @@ const TabSort = ({ active, setActive }) => {
           <Text
             style={[
               styles.label,
-              { color: item.isActive ? colors.neonCarrot : colors.blueMagenta },
+              { color: item.isActive ? colors.neonCarrot : colors.main },
             ]}
           >
             {item.label}
@@ -63,11 +62,11 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     paddingBottom: 25,
-    backgroundColor: colors.white,
+    backgroundColor: colors.background,
   },
   label: {
     fontFamily: constants.fontMainBold,
-    color: colors.blueMagenta,
+    color: colors.main,
     fontSize: 15,
   },
 });

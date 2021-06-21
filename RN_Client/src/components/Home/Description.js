@@ -1,16 +1,17 @@
-/* eslint-disable react/prop-types */
 import React, { useRef, useContext, useState } from 'react';
 import {
   Text, View, StyleSheet, TouchableOpacity, Animated,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
-import Button from './Button';
-import productsContext from '../context/products/productsContext';
-import colors from '../constants/colors';
-import constants from '../constants/constants';
-import strings from '../constants/strings';
-import utils from '../helpers/utils';
+import Button from '../General/Button';
+import Price from '../General/Price';
+
+import context from '../../context/context';
+import colors from '../../constants/colors';
+import constants from '../../constants/constants';
+import strings from '../../constants/strings';
+import utils from '../../helpers/utils';
 
 const MARGIN = 20;
 const BEGIN_BOTTOM = 5;
@@ -30,7 +31,7 @@ const Description = ({
 }) => {
   const {
     favoriteProducts, addFavorite, removeFavorite, cartProducts, addCart,
-  } = useContext(productsContext);
+  } = useContext(context);
   const [favorite, setFavorite] = useState(
     favoriteProducts.length
       ? Boolean(favoriteProducts.find((product) => product.id === id))
@@ -93,7 +94,7 @@ const Description = ({
         </TouchableOpacity>
       </View>
       <View style={styles.header}>
-        <Text style={styles.price}>{utils.getPrice(price)}</Text>
+        <Price price={price} fontSize={19} />
         <View style={styles.wrapperViews}>
           <Text style={styles.views}>{views}</Text>
           <Icon
@@ -120,7 +121,6 @@ const Description = ({
                 size={25}
                 color={colors.neonCarrot}
               />
-
             )
             : (
               <Icon
@@ -145,7 +145,7 @@ const styles = StyleSheet.create({
   container: {
     position: 'absolute',
     width: '100%',
-    backgroundColor: colors.white,
+    backgroundColor: colors.background,
     borderRadius: 30,
     paddingHorizontal: 25,
   },
@@ -166,11 +166,6 @@ const styles = StyleSheet.create({
   iconViews: {
     paddingLeft: 10,
   },
-  price: {
-    fontFamily: constants.fontMainBold,
-    fontSize: 19,
-    color: colors.blueMagenta,
-  },
   views: {
     fontFamily: constants.fontMainRegular,
     fontSize: 16,
@@ -183,7 +178,7 @@ const styles = StyleSheet.create({
   name: {
     fontFamily: constants.fontMainMedium,
     fontSize: 25,
-    color: colors.blueMagenta,
+    color: colors.main,
   },
   balanceWrapper: {
     width: '100%',

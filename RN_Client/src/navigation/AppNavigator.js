@@ -2,50 +2,109 @@ import React, { useState, useContext, useEffect } from 'react';
 import {
   StyleSheet, View, TouchableOpacity, StatusBar,
 } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import HomeScreen from '../screens/HomeScreen';
 import DetailScreen from '../screens/DetailScreen';
 import CartScreen from '../screens/CartScreen';
 import FavoritesScreen from '../screens/FavoritesScreen';
+import OrdersScreen from '../screens/OrdersScreen';
+import OrderScreen from '../screens/OrderScreen';
+import AuthScreen from '../screens/AuthScreen';
 
-import productsContext from '../context/products/productsContext';
-import Alert from '../components/Alert';
-import TabIcon from '../components/TabIcon';
+import context from '../context/context';
+import Alert from '../components/General/Alert';
+import Loader from '../components/General/Loader';
+import TabIcon from '../components/Nav/TabIcon';
 import colors from '../constants/colors';
 import strings from '../constants/strings';
+import constants from '../constants/constants';
 import API from '../api/api';
 
 const TAB_PRODUCTS = 'TAB_PRODUCTS';
 const TAB_FAVORITES = 'TAB_FAVORITES';
 const TAB_CART = 'TAB_CART';
+const TAB_ORDERS = 'TAB_ORDERS';
 
 const SCREEN_HOME = 'SCREEN_HOME';
 const SCREEN_DETAIL = 'SCREEN_DETAIL';
 const SCREEN_FAVOTITES = 'SCREEN_FAVOTITES';
 const SCREEN_CART = 'SCREEN_CART';
+const SCREEN_ORDERS = 'SCREEN_ORDERS';
+const SCREEN_ORDER = 'SCREEN_ORDER';
 
 const AppNavigator = () => {
+  const {
+    setCurrentProduct,
+    setCurrentOrder,
+    init,
+    initOrders,
+    login,
+    password,
+    setLogin,
+    setPassword,
+  } = useContext(context);
+
   const [activeTab, setActiveTab] = useState(TAB_PRODUCTS);
   const [activeScreen, setActiveScreen] = useState(SCREEN_HOME);
   const [lastHomeScreen, setLastHomeScreen] = useState(SCREEN_HOME);
+  const [lastOrderScreen, setLastOrderScreen] = useState(SCREEN_ORDERS);
   const [isError, setIsError] = useState(false);
   const [error, setError] = useState('');
-  const { setCurrentProduct, init } = useContext(productsContext);
+  const [statusLoading, setStatusLoading] = useState('loading');
 
-  const getProducts = async () => {
+  const initState = async () => {
     try {
-      const response = await API.getProducts();
-      init(response);
+      const products = await API.getProducts();
+      const orders = await API.getOrders({ login, password });
+      init(products);
+      initOrders(orders);
       setIsError(false);
     } catch (e) {
       setIsError(true);
-      setError(e.status);
+      setError(strings.error);
+    }
+  };
+
+  const bootstrapAsync = async () => {
+    const storageLogin = await AsyncStorage.getItem(
+      `${constants.appName}${constants.appVersion}login`,
+    );
+
+    const storagePassword = await AsyncStorage.getItem(
+      `${constants.appName}${constants.appVersion}password`,
+    );
+
+    if (storageLogin && storagePassword) {
+      try {
+        const response = await API.login({ login: storageLogin, password: storagePassword });
+        if (response.result) {
+          setLogin(storageLogin);
+          setPassword(storagePassword);
+          setStatusLoading('main');
+        } else {
+          setStatusLoading('auth');
+        }
+      } catch (e) {
+        setStatusLoading('auth');
+      }
+    } else {
+      setStatusLoading('auth');
     }
   };
 
   useEffect(() => {
-    getProducts();
-  }, []);
+    if (statusLoading === 'main') {
+      initState();
+    } else if (statusLoading === 'loading') {
+      bootstrapAsync();
+    }
+  }, [statusLoading]);
+
+  const initScreen = () => {
+    setActiveScreen(SCREEN_HOME);
+    setActiveTab(TAB_PRODUCTS);
+  };
 
   const tabBarItems = [
     {
@@ -56,6 +115,9 @@ const AppNavigator = () => {
       isCart: false,
       onPress: () => {
         setActiveTab(TAB_PRODUCTS);
+        if (activeScreen === SCREEN_ORDER || activeScreen === SCREEN_ORDERS) {
+          setLastOrderScreen(activeScreen);
+        }
         if (activeScreen !== SCREEN_DETAIL && activeScreen !== SCREEN_HOME) {
           setActiveScreen(lastHomeScreen);
         } else {
@@ -71,9 +133,32 @@ const AppNavigator = () => {
       isCart: false,
       onPress: () => {
         setActiveTab(TAB_FAVORITES);
-        if (activeScreen !== SCREEN_FAVOTITES) { setActiveScreen(SCREEN_FAVOTITES); }
+        if (activeScreen !== SCREEN_FAVOTITES) {
+          setActiveScreen(SCREEN_FAVOTITES);
+        }
         if (activeScreen === SCREEN_DETAIL || activeScreen === SCREEN_HOME) {
           setLastHomeScreen(activeScreen);
+        }
+        if (activeScreen === SCREEN_ORDER || activeScreen === SCREEN_ORDERS) {
+          setLastOrderScreen(activeScreen);
+        }
+      },
+    },
+    {
+      key: TAB_ORDERS,
+      iconName: 'albums',
+      label: strings.tabBar.orders,
+      isFull: activeTab === TAB_ORDERS,
+      isCart: false,
+      onPress: () => {
+        setActiveTab(TAB_ORDERS);
+        if (activeScreen === SCREEN_DETAIL || activeScreen === SCREEN_HOME) {
+          setLastHomeScreen(activeScreen);
+        }
+        if (activeScreen !== SCREEN_ORDER && activeScreen !== SCREEN_ORDERS) {
+          setActiveScreen(lastOrderScreen);
+        } else {
+          setActiveScreen(SCREEN_ORDERS);
         }
       },
     },
@@ -85,9 +170,14 @@ const AppNavigator = () => {
       isCart: true,
       onPress: () => {
         setActiveTab(TAB_CART);
-        if (activeScreen !== SCREEN_CART) { setActiveScreen(SCREEN_CART); }
+        if (activeScreen !== SCREEN_CART) {
+          setActiveScreen(SCREEN_CART);
+        }
         if (activeScreen === SCREEN_DETAIL || activeScreen === SCREEN_HOME) {
           setLastHomeScreen(activeScreen);
+        }
+        if (activeScreen === SCREEN_ORDER || activeScreen === SCREEN_ORDERS) {
+          setLastOrderScreen(activeScreen);
         }
       },
     },
@@ -99,6 +189,12 @@ const AppNavigator = () => {
   };
   const navigateHome = () => setActiveScreen(SCREEN_HOME);
 
+  const navigateOrder = (id) => {
+    setActiveScreen(SCREEN_ORDER);
+    setCurrentOrder(id);
+  };
+  const navigateOrders = () => setActiveScreen(SCREEN_ORDERS);
+
   const renderScreen = () => {
     switch (activeScreen) {
       case SCREEN_HOME:
@@ -109,6 +205,16 @@ const AppNavigator = () => {
         return <FavoritesScreen />;
       case SCREEN_CART:
         return <CartScreen />;
+      case SCREEN_ORDERS:
+        return (
+          <OrdersScreen
+            navigation={navigateOrder}
+            setStatusLoading={setStatusLoading}
+            initScreen={initScreen}
+          />
+        );
+      case SCREEN_ORDER:
+        return <OrderScreen navigation={navigateOrders} />;
       default:
         return null;
     }
@@ -129,9 +235,20 @@ const AppNavigator = () => {
     </TouchableOpacity>
   ));
 
-  return (
-    <>
-      <StatusBar barStyle="dark-content" backgroundColor={colors.white} />
+  const render = () => {
+    if (statusLoading === 'loading') {
+      return (
+        <View style={styles.emptyContainer}>
+          <Loader />
+        </View>
+      );
+    }
+
+    if (statusLoading === 'auth') {
+      return <AuthScreen setStatusLoading={setStatusLoading} />;
+    }
+
+    return (
       <View style={styles.container}>
         <View style={styles.screen}>
           {renderScreen()}
@@ -141,6 +258,13 @@ const AppNavigator = () => {
         </View>
         <Alert title={error} success={false} isOpen={isError} setIsOpen={setIsError} />
       </View>
+    );
+  };
+
+  return (
+    <>
+      <StatusBar barStyle={colors.statusBar} backgroundColor={colors.background} />
+      {render()}
     </>
   );
 };
@@ -148,7 +272,14 @@ const AppNavigator = () => {
 const styles = StyleSheet.create({
   container: {
     height: '100%',
-    backgroundColor: colors.white,
+    backgroundColor: colors.background,
+  },
+  emptyContainer: {
+    height: '100%',
+    width: '100%',
+    backgroundColor: colors.background,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   screen: {
     height: '91%',
@@ -159,7 +290,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     width: '100%',
     height: '9%',
-    backgroundColor: colors.white,
+    backgroundColor: colors.background,
     alignItems: 'center',
     justifyContent: 'space-around',
     elevation: 10,

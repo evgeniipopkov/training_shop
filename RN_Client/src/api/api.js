@@ -1,7 +1,7 @@
-const BASE_URL = 'http://192.168.0.3/training_shop/hs/app/';
+const BASE_URL = 'https://rarus-chlb.corp.rarus-cloud.ru/DemoTradeShop/hs/app/';
 
 const headers = {
-  Authorization: 'Basic YXBwOmFwcA==',
+  Authorization: 'Basic aHM6aHNwYXNz',
   'Content-Type': 'application/json; charset=utf-8',
 };
 
@@ -11,7 +11,9 @@ const request = async (route, method, data) => {
     headers,
   };
 
-  if (method === 'POST') config.body = JSON.stringify(data);
+  if (method === 'POST') {
+    config.body = JSON.stringify(data);
+  }
 
   const response = await fetch(BASE_URL + route, config);
   if (response.ok) {
@@ -22,8 +24,13 @@ const request = async (route, method, data) => {
   throw response;
 };
 
+const login = async (data) => request('login', 'POST', data);
 const getProducts = async () => request('products', 'GET');
 const getProduct = async (id) => request(`product?id=${id}`, 'GET');
+const getOrders = async (data) => request('orders', 'POST', data);
 const postOrder = async (data) => request('order', 'POST', data);
+const deleteOrder = async (id) => request(`order?id=${id}`, 'DELETE');
 
-export default { getProducts, getProduct, postOrder };
+export default {
+  login, getProducts, getProduct, postOrder, getOrders, deleteOrder,
+};

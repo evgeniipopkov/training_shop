@@ -1,9 +1,8 @@
-/* eslint-disable react/prop-types */
 import React from 'react';
 import { Text, View, StyleSheet } from 'react-native';
 
-import colors from '../constants/colors';
-import constants from '../constants/constants';
+import colors from '../../constants/colors';
+import constants from '../../constants/constants';
 
 const Header = ({ title }) => (
   <View style={styles.container}>
@@ -18,12 +17,12 @@ const styles = StyleSheet.create({
     paddingBottom: 35,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: colors.white,
+    backgroundColor: colors.background,
   },
   title: {
     fontFamily: constants.fontMainRegular,
     fontSize: 18,
-    color: colors.blueMagenta,
+    color: colors.main,
   },
 });
 

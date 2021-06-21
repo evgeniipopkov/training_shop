@@ -1,8 +1,18 @@
 export default {
+  auth: {
+    header: 'Авторизация',
+    login: 'Логин',
+    password: 'Пароль',
+    validateInput: 'Обязательное',
+    button: 'Вход',
+    error: 'Неправильный логин или пароль',
+    name: 'Демо Магазин',
+  },
   tabBar: {
     products: 'Товары',
     favorites: 'Избранное',
     cart: 'Корзина',
+    orders: 'Заказы',
   },
   tabSort: {
     all: 'Все',
@@ -14,9 +24,32 @@ export default {
     addCart: 'Добавить в корзину',
     addedCart: 'Добавлено в корзину',
     order: 'Оформить заказ',
+    cancel: 'Отменить',
   },
-  successOrder: 'Заказ успешно оформлен',
+  order: {
+    header: {
+      new: 'Новые',
+      received: 'Полученные',
+    },
+    status: {
+      closed: 'Закрыт',
+      notAgreed: 'На согласовании',
+      toEnsure: 'К выполнению / В резерве',
+      toShipment: 'К отгрузке',
+    },
+    errors: {
+      remove: 'Ошибка отмены заказа',
+      get: 'Ошибка получения заказов',
+    },
+    number: 'Номер заказа',
+    cancelSuccess: 'Заказ отменен',
+    empty: 'Заказы отсутствуют',
+    successOrder: 'Заказ успешно оформлен',
+  },
   searchPlaceholder: 'Поиск ...',
   sum: 'Сумма',
   empty: 'Товары отсутствуют',
+  logout: 'Выход',
+  error: 'Ошибка получения данных',
+  refresh: 'Обновить',
 };

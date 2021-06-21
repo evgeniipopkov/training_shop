@@ -1,11 +1,10 @@
-/* eslint-disable react/prop-types */
 import React from 'react';
 import {
   Text, TouchableOpacity, StyleSheet,
 } from 'react-native';
 
-import colors from '../constants/colors';
-import constants from '../constants/constants';
+import colors from '../../constants/colors';
+import constants from '../../constants/constants';
 
 const Button = ({
   label, onPress, touchable = true,
@@ -38,7 +37,7 @@ const styles = StyleSheet.create({
   cartText: {
     fontFamily: constants.fontMainMedium,
     fontSize: 16,
-    color: colors.white,
+    color: colors.background,
   },
 });
 

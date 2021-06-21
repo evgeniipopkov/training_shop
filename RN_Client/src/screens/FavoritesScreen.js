@@ -1,8 +1,9 @@
 import React from 'react';
 
-import Container from '../components/Container';
-import Header from '../components/Header';
-import FavoritesList from '../components/FavoritesList';
+import Container from '../components/General/Container';
+import Header from '../components/General/Header';
+import FavoritesList from '../components/Favorite/FavoritesList';
+
 import strings from '../constants/strings';
 
 const FavoritesScreen = () => (

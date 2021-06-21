@@ -5,14 +5,16 @@ import {
 } from 'react-native';
 
 import ProductListItem from './ProductListItem';
-import productsContext from '../context/products/productsContext';
-import API from '../api/api';
+
+import context from '../../context/context';
+import API from '../../api/api';
+import strings from '../../constants/strings';
 
 const ProductsList = ({
   header, navigation, setError, setIsError,
 }) => {
   const [refreshing, setRefreshing] = useState(false);
-  const { init, filterProducts } = useContext(productsContext);
+  const { init, filterProducts } = useContext(context);
 
   const getProducts = async () => {
     try {
@@ -21,7 +23,7 @@ const ProductsList = ({
       setIsError(false);
     } catch (e) {
       setIsError(true);
-      setError(e.status);
+      setError(strings.error);
     } finally {
       setRefreshing(false);
     }

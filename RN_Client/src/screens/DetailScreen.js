@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import React, {
   useRef, useContext, useEffect, useState,
 } from 'react';
@@ -7,9 +6,10 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
-import productsContext from '../context/products/productsContext';
-import Alert from '../components/Alert';
-import Description from '../components/Description';
+import Alert from '../components/General/Alert';
+import Description from '../components/Home/Description';
+
+import context from '../context/context';
 import colors from '../constants/colors';
 import constants from '../constants/constants';
 import API from '../api/api';
@@ -18,9 +18,10 @@ const MIN_HEIGHT_IMAGE = Math.round(constants.height * 0.6);
 const MAX_HEIGHT_IMAGE = Math.round(constants.height * 0.91);
 
 const DetailScreen = ({ navigation }) => {
+  const { currentProduct } = useContext(context);
+
   const heightLayout = useRef(0);
   const heightImage = useRef(new Animated.Value(MIN_HEIGHT_IMAGE)).current;
-  const { currentProduct } = useContext(productsContext);
   const [product, setProduct] = useState(currentProduct);
   const [isError, setIsError] = useState(false);
   const [error, setError] = useState('');
@@ -42,6 +43,30 @@ const DetailScreen = ({ navigation }) => {
     getProduct();
   }, [currentProduct]);
 
+  const icons = [
+    {
+      key: 'back',
+      style: styles.back,
+      onPress: navigation,
+      nameIcon: 'chevron-back-outline',
+    },
+    {
+      key: 'refresh',
+      style: styles.refresh,
+      onPress: getProduct,
+      nameIcon: 'refresh-outline',
+    }];
+
+  const renderIcon = (key, style, onPress, nameIcon) => (
+    <TouchableOpacity key={key} style={style} onPress={onPress}>
+      <Icon
+        name={nameIcon}
+        size={30}
+        color="#160F26"
+      />
+    </TouchableOpacity>
+  );
+
   return (
     <>
       <StatusBar translucent barStyle="dark-content" backgroundColor={colors.transparent} />
@@ -50,20 +75,9 @@ const DetailScreen = ({ navigation }) => {
           style={[styles.image, { height: heightImage }]}
           source={{ uri: product.bigSrc }}
         />
-        <TouchableOpacity style={styles.back} onPress={() => navigation()}>
-          <Icon
-            name="chevron-back-outline"
-            size={30}
-            color={colors.blueMagenta}
-          />
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.refresh} onPress={() => getProduct()}>
-          <Icon
-            name="refresh-outline"
-            size={30}
-            color={colors.blueMagenta}
-          />
-        </TouchableOpacity>
+        {icons.map(({
+          key, style, onPress, nameIcon,
+        }) => renderIcon(key, style, onPress, nameIcon))}
         {showDesc && (
           <Description
             id={product.id}
@@ -79,7 +93,7 @@ const DetailScreen = ({ navigation }) => {
           />
         )}
       </View>
-      <Alert title={error} success={false} isOpen={isError} setIsOpen={setIsError} />
+      <Alert title={error} success={false} isOpen={isError} setIsOpen={setIsError} showStatusBar />
     </>
   );
 };

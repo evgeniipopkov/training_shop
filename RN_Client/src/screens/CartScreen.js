@@ -1,43 +1,55 @@
 import React, { useContext, useState } from 'react';
 
-import productsContext from '../context/products/productsContext';
-import Alert from '../components/Alert';
-import Empty from '../components/Empty';
-import Container from '../components/Container';
-import CartList from '../components/CartList';
-import Header from '../components/Header';
-import CartFooter from '../components/CartFooter';
+import Alert from '../components/General/Alert';
+import Empty from '../components/General/Empty';
+import Container from '../components/General/Container';
+import Loader from '../components/General/Loader';
+import Header from '../components/General/Header';
+import CartList from '../components/Cart/CartList';
+import CartFooter from '../components/Cart/CartFooter';
+
+import context from '../context/context';
 import strings from '../constants/strings';
 
 const CartScreen = () => {
+  const { cartProducts } = useContext(context);
+
   const [isMessage, setIsMessage] = useState(false);
   const [success, setSuccess] = useState(false);
   const [message, setMessage] = useState('');
-  const { cartProducts } = useContext(productsContext);
+  const [isLoading, setIsLoading] = useState(false);
+
   const renderHeader = () => <Header title={strings.tabBar.cart} />;
 
   return (
     <Container>
-      {cartProducts.length
+      {!isLoading
         ? (
           <>
-            <CartList
-              header={renderHeader()}
-            />
-            <CartFooter
-              setIsMessage={setIsMessage}
-              setSuccess={setSuccess}
-              setMessage={setMessage}
+            {cartProducts.length
+              ? (
+                <>
+                  <CartList
+                    header={renderHeader()}
+                  />
+                  <CartFooter
+                    setIsMessage={setIsMessage}
+                    setSuccess={setSuccess}
+                    setMessage={setMessage}
+                    setIsLoading={setIsLoading}
+                  />
+                </>
+              )
+              : <Empty header={renderHeader()} />}
+            <Alert
+              title={message}
+              success={success}
+              isOpen={isMessage}
+              setIsOpen={setIsMessage}
             />
           </>
         )
-        : <Empty header={renderHeader()} />}
-      <Alert
-        title={message}
-        success={success}
-        isOpen={isMessage}
-        setIsOpen={setIsMessage}
-      />
+        : <Loader />}
     </Container>
   );
 };

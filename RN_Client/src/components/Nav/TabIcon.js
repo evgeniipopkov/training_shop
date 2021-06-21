@@ -1,11 +1,11 @@
-/* eslint-disable react/prop-types */
 import React from 'react';
 import { Text, View, StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 import CartIcon from './CartIcon';
-import colors from '../constants/colors';
-import constants from '../constants/constants';
+
+import colors from '../../constants/colors';
+import constants from '../../constants/constants';
 
 const TabIcon = ({
   iconName, label, isFull = false, isCart = false,
@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
   container: {
     borderRadius: 12,
     flexDirection: 'row',
-    backgroundColor: colors.whiteSmoke,
+    backgroundColor: colors.innerBackgroud,
     paddingVertical: 7,
     paddingHorizontal: 12,
     alignItems: 'center',

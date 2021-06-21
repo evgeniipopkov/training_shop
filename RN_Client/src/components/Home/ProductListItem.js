@@ -1,19 +1,21 @@
-/* eslint-disable react/prop-types */
 import React, { useContext } from 'react';
 import {
-  Text, View, StyleSheet, Image, TouchableOpacity,
+  View, StyleSheet, Image, TouchableOpacity,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
-import productsContext from '../context/products/productsContext';
-import colors from '../constants/colors';
-import constants from '../constants/constants';
-import utils from '../helpers/utils';
+import Price from '../General/Price';
+import Balance from '../General/Balance';
+import Name from '../General/Name';
+
+import context from '../../context/context';
+import colors from '../../constants/colors';
+import constants from '../../constants/constants';
 
 const ProductListItem = ({
   id, name, price, src, balance, navigation,
 }) => {
-  const { favoriteProducts } = useContext(productsContext);
+  const { favoriteProducts } = useContext(context);
 
   return (
     <TouchableOpacity style={styles.container} onPress={() => navigation(id)}>
@@ -37,15 +39,15 @@ const ProductListItem = ({
           <Icon
             name="star"
             size={15}
-            color={colors.white}
+            color={colors.background}
           />
         </View>
       </View>
       <View style={styles.wrapperPrice}>
-        <Text style={styles.price}>{utils.getPrice(price)}</Text>
-        <Text style={styles.balance}>{utils.getBalance(balance)}</Text>
+        <Price price={price} fontSize={18} />
+        <Balance balance={balance} fontSize={14} />
       </View>
-      <Text style={styles.name}>{name}</Text>
+      <Name name={name} fontSize={15} />
     </TouchableOpacity>
   );
 };
@@ -65,21 +67,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-  },
-  price: {
-    fontFamily: constants.fontMainBold,
-    fontSize: 18,
-    color: colors.blueMagenta,
-  },
-  balance: {
-    fontFamily: constants.fontMainRegular,
-    fontSize: 14,
-    color: colors.gullGray,
-  },
-  name: {
-    fontFamily: constants.fontMainRegular,
-    fontSize: 15,
-    color: colors.gullGray,
   },
   favorites: {
     position: 'absolute',

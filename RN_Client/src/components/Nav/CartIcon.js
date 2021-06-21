@@ -1,14 +1,13 @@
-/* eslint-disable react/prop-types */
 import React, { useContext } from 'react';
 import { View, StyleSheet, Text } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
-import productsContext from '../context/products/productsContext';
-import colors from '../constants/colors';
-import constants from '../constants/constants';
+import context from '../../context/context';
+import colors from '../../constants/colors';
+import constants from '../../constants/constants';
 
 const CartIcon = ({ iconName, isFull = false }) => {
-  const { cartProducts } = useContext(productsContext);
+  const { cartProducts } = useContext(context);
   const count = cartProducts.length
     ? cartProducts.reduce((acc, current) => acc + current.count, 0)
     : 0;
@@ -23,7 +22,7 @@ const CartIcon = ({ iconName, isFull = false }) => {
       {count
         ? (
           <View style={styles.circle}>
-            <Text style={styles.count}>{count}</Text>
+            <Text style={styles.count}>{count > 99 ? '\u221E' : count}</Text>
           </View>
         )
         : null}
@@ -48,6 +47,6 @@ const styles = StyleSheet.create({
   count: {
     fontFamily: constants.fontMainRegular,
     fontSize: 12,
-    color: colors.white,
+    color: colors.background,
   },
 });

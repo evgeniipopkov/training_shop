@@ -1,10 +1,14 @@
-import { Dimensions } from 'react-native';
+import { Dimensions, Appearance } from 'react-native';
+import appPackage from '../../package.json';
 
 const fontMainRegular = 'Roboto-Regular';
 const fontMainMedium = 'Roboto-Medium';
 const fontMainBold = 'Roboto-Bold';
 
 const { width, height } = Dimensions.get('window');
+const isDarkMode = Appearance.getColorScheme() === 'dark';
+const appVersion = appPackage.version;
+const appName = appPackage.name;
 
 const types = {
   typeСlothes: {
@@ -25,4 +29,7 @@ export default {
   width,
   height,
   types,
+  appVersion,
+  appName,
+  isDarkMode,
 };

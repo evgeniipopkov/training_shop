@@ -1,31 +1,43 @@
-/* eslint-disable react/prop-types */
 import React, { useContext } from 'react';
 import { Text, View, StyleSheet } from 'react-native';
 
-import productsContext from '../context/products/productsContext';
-import Button from './Button';
-import strings from '../constants/strings';
-import utils from '../helpers/utils';
-import constants from '../constants/constants';
-import colors from '../constants/colors';
-import API from '../api/api';
+import Button from '../General/Button';
+import Price from '../General/Price';
 
-const CartFooter = ({ setMessage, setSuccess, setIsMessage }) => {
-  const { cartProducts, clearCart } = useContext(productsContext);
+import context from '../../context/context';
+import strings from '../../constants/strings';
+import colors from '../../constants/colors';
+import constants from '../../constants/constants';
+import API from '../../api/api';
+
+const CartFooter = ({
+  setMessage, setSuccess, setIsMessage, setIsLoading,
+}) => {
+  const {
+    cartProducts, clearCart, initOrders, login, password,
+  } = useContext(context);
   const sum = cartProducts.reduce((acc, current) => (acc + current.count * current.price), 0);
 
   const postOrder = async () => {
+    setIsLoading(true);
     try {
-      await API.postOrder(cartProducts.map((item) => ({ id: item.id, count: item.count })));
-      setMessage(strings.successOrder);
+      await API.postOrder({
+        login,
+        password,
+        products: cartProducts.map(({ id, count, price }) => ({ id, count, price })),
+      });
+      setMessage(strings.order.successOrder);
       setSuccess(true);
       clearCart();
+      const orders = await API.getOrders({ login, password });
+      initOrders(orders);
     } catch (e) {
       const error = await e.json();
       setMessage(error.message);
       setSuccess(false);
     } finally {
       setIsMessage(true);
+      setIsLoading(false);
     }
   };
 
@@ -33,10 +45,10 @@ const CartFooter = ({ setMessage, setSuccess, setIsMessage }) => {
     <View style={styles.container}>
       <View style={styles.wrapper}>
         <Text style={styles.sum}>{strings.sum}</Text>
-        <Text style={styles.sum}>{utils.getPrice(sum)}</Text>
+        <Price price={sum} fontSize={22} />
       </View>
       <Button
-        onPress={() => postOrder()}
+        onPress={postOrder}
         label={strings.cartButtons.order}
       />
     </View>
@@ -46,7 +58,7 @@ const CartFooter = ({ setMessage, setSuccess, setIsMessage }) => {
 const styles = StyleSheet.create({
   container: {
     position: 'absolute',
-    backgroundColor: colors.white,
+    backgroundColor: colors.background,
     width: '100%',
     bottom: 0,
     alignItems: 'center',
@@ -62,8 +74,8 @@ const styles = StyleSheet.create({
   },
   sum: {
     fontFamily: constants.fontMainBold,
+    color: colors.main,
     fontSize: 22,
-    color: colors.blueMagenta,
   },
 });
 

@@ -92,7 +92,7 @@ response:
 
 ## Получить список заказов
 
-GET .../orders
+POST .../orders
 
 headers: {
     'Content-Type': 'application/json',
@@ -117,12 +117,15 @@ response:
         "date": "2021-05-25T00:00:00",
         "totalSum": 22562,
         "orderid": "110241a6-bd2c-11eb-80f1-0050569b8465",
+        "status": "На согласовании, К выполнению / В резерве, К отгрузке, Закрыт",
         "products": [
             {
                 "count": 6,
                 "price": 1432,
                 "sum": 8592,
-                "productid": "358c46f4-bca3-11eb-9ef0-00e18ca39a16"
+                "productid": "358c46f4-bca3-11eb-9ef0-00e18ca39a16",
+                "src": "https://github.com/evgeniipopkov/training_shop/blob/master/images/hoody-1.jpg?raw=true",
+                "name": "A2 SPORT / Худи",
             },
         ]
     },

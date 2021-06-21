@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "2D02E47A1E0B4A5D006451C7"
-               BuildableName = "training_shop-tvOS.app"
-               BlueprintName = "training_shop-tvOS"
-               ReferencedContainer = "container:training_shop.xcodeproj">
+               BuildableName = "demo_shop-tvOS.app"
+               BlueprintName = "demo_shop-tvOS"
+               ReferencedContainer = "container:demo_shop.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "2D02E48F1E0B4A5D006451C7"
-               BuildableName = "training_shop-tvOSTests.xctest"
-               BlueprintName = "training_shop-tvOSTests"
-               ReferencedContainer = "container:training_shop.xcodeproj">
+               BuildableName = "demo_shop-tvOSTests.xctest"
+               BlueprintName = "demo_shop-tvOSTests"
+               ReferencedContainer = "container:demo_shop.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -55,9 +55,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "2D02E47A1E0B4A5D006451C7"
-            BuildableName = "training_shop-tvOS.app"
-            BlueprintName = "training_shop-tvOS"
-            ReferencedContainer = "container:training_shop.xcodeproj">
+            BuildableName = "demo_shop-tvOS.app"
+            BlueprintName = "demo_shop-tvOS"
+            ReferencedContainer = "container:demo_shop.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -72,9 +72,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "2D02E47A1E0B4A5D006451C7"
-            BuildableName = "training_shop-tvOS.app"
-            BlueprintName = "training_shop-tvOS"
-            ReferencedContainer = "container:training_shop.xcodeproj">
+            BuildableName = "demo_shop-tvOS.app"
+            BlueprintName = "demo_shop-tvOS"
+            ReferencedContainer = "container:demo_shop.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

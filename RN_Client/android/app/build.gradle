@@ -129,7 +129,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.training_shop"
+        applicationId "com.demo_shop"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1

@@ -1,4 +1,4 @@
-package com.training_shop;
+package com.demo_shop;
 
 import android.os.Bundle;
 import com.facebook.react.ReactActivity;
@@ -12,7 +12,7 @@ public class MainActivity extends ReactActivity {
    */
   @Override
   protected String getMainComponentName() {
-    return "training_shop";
+    return "demo_shop";
   }
 
   @Override

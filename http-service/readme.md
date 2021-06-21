@@ -57,7 +57,7 @@ response:
     {
         "name": "Eva Manchini / Платье",
         "price": 1864,
-        "src": "https://github.com/evgeniipopkov/training_shop/blob/master/images/dress-1.jpg?raw=true",
+        "src": "https://github.com/evgeniipopkov/demo_shop/blob/master/images/dress-1.jpg?raw=true",
         "balance": 121,
         "id": "358c46e4-bca3-11eb-9ef0-00e18ca39a16",
         "type": "Платье"
@@ -80,7 +80,7 @@ response:
 
 ```javascript
 {
-    "bigSrc": "https://github.com/evgeniipopkov/training_shop/blob/master/images/dress-1-big.jpg?raw=true",
+    "bigSrc": "https://github.com/evgeniipopkov/demo_shop/blob/master/images/dress-1-big.jpg?raw=true",
     "views": null,
     "description": "Трикотажное базовое повседневное платье для офиса и для прогулок. Выполнено из качественного трикотажного мягкого полотна с эластаном, очень приятного к телу.",
     "name": "Eva Manchini / Платье",
@@ -124,7 +124,7 @@ response:
                 "price": 1432,
                 "sum": 8592,
                 "productid": "358c46f4-bca3-11eb-9ef0-00e18ca39a16",
-                "src": "https://github.com/evgeniipopkov/training_shop/blob/master/images/hoody-1.jpg?raw=true",
+                "src": "https://github.com/evgeniipopkov/demo_shop/blob/master/images/hoody-1.jpg?raw=true",
                 "name": "A2 SPORT / Худи",
             },
         ]

@@ -1,6 +1,8 @@
 package com.training_shop;
 
+import android.os.Bundle;
 import com.facebook.react.ReactActivity;
+import org.devio.rn.splashscreen.SplashScreen;
 
 public class MainActivity extends ReactActivity {
 
@@ -12,4 +14,10 @@ public class MainActivity extends ReactActivity {
   protected String getMainComponentName() {
     return "training_shop";
   }
+
+  @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        SplashScreen.show(this, R.style.SplashScreenTheme);  
+        super.onCreate(savedInstanceState);
+    }
 }

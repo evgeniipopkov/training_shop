@@ -1,12 +1,19 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import SplashScreen from 'react-native-splash-screen';
 
 import AppNavigator from './src/navigation/AppNavigator';
-import ProductsState from './src/context/products/ProductsState';
+import State from './src/context/State';
 
-const App = () => (
-  <ProductsState>
-    <AppNavigator />
-  </ProductsState>
-);
+const App = () => {
+  useEffect(() => {
+    SplashScreen.hide();
+  }, []);
+
+  return (
+    <State>
+      <AppNavigator />
+    </State>
+  );
+};
 
 export default App;

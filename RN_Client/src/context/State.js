@@ -49,7 +49,6 @@ const State = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   const init = async (products) => {
-    const isDarkMode = await AsyncStorage.getItem('isDarkMode');
     const favoritesString = await AsyncStorage.getItem('favoriteProducts');
     const favorites = favoritesString ? await JSON.parse(favoritesString) : [];
     const cartsString = await AsyncStorage.getItem('cartProducts');
@@ -76,7 +75,6 @@ const State = ({ children }) => {
         products,
         favorites: newFavorites,
         carts: newCarts,
-        isDarkMode: Boolean(isDarkMode),
       },
     });
   };

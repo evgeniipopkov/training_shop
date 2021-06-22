@@ -1,18 +1,46 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import {
   TextInput, View, StyleSheet, Pressable, Keyboard, TouchableOpacity,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
-import colors from '../../constants/colors';
+import context from '../../context/context';
 import constants from '../../constants/constants';
 import strings from '../../constants/strings';
 
 const Search = ({ value, setValue }) => {
+  const { theme } = useContext(context);
+
   const clean = () => {
     setValue('');
     Keyboard.dismiss();
   };
+
+  const styles = StyleSheet.create({
+    container: {
+      paddingVertical: 25,
+      backgroundColor: theme.background,
+    },
+    borderContainer: {
+      flexDirection: 'row',
+      borderRadius: 20,
+      backgroundColor: theme.innerBackgroud,
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      paddingHorizontal: 18,
+    },
+    wrapper: {
+      flexDirection: 'row',
+      alignItems: 'center',
+    },
+    input: {
+      fontFamily: constants.fontMainRegular,
+      color: theme.main,
+      fontSize: 16,
+      paddingLeft: 15,
+      width: '80%',
+    },
+  });
 
   return (
     <View style={styles.container}>
@@ -22,7 +50,7 @@ const Search = ({ value, setValue }) => {
             <Icon
               name="search-outline"
               size={22}
-              color={colors.gullGray}
+              color={theme.gullGray}
             />
           </Pressable>
           <TextInput
@@ -30,7 +58,7 @@ const Search = ({ value, setValue }) => {
             value={value}
             onChangeText={(text) => setValue(text)}
             placeholder={strings.searchPlaceholder}
-            placeholderTextColor={colors.gullGray}
+            placeholderTextColor={theme.gullGray}
           />
         </View>
         {value
@@ -39,7 +67,7 @@ const Search = ({ value, setValue }) => {
               <Icon
                 name="close-outline"
                 size={27}
-                color={colors.main}
+                color={theme.main}
               />
             </TouchableOpacity>
           )
@@ -48,31 +76,5 @@ const Search = ({ value, setValue }) => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    paddingVertical: 25,
-    backgroundColor: colors.background,
-  },
-  borderContainer: {
-    flexDirection: 'row',
-    borderRadius: 20,
-    backgroundColor: colors.innerBackgroud,
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    paddingHorizontal: 18,
-  },
-  wrapper: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  input: {
-    fontFamily: constants.fontMainRegular,
-    color: colors.main,
-    fontSize: 16,
-    paddingLeft: 15,
-    width: '80%',
-  },
-});
 
 export default Search;

@@ -4,6 +4,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import types from './types';
 import constants from '../constants/constants';
 import utils from '../helpers/utils';
+import colors from '../constants/colors';
 
 const { ALL_CLOTHES } = constants.types.typeСlothes;
 const {
@@ -21,6 +22,7 @@ const {
   INIT_ORDERS,
   SET_LOGIN,
   SET_PASSWORD,
+  CHANGE_THEME,
 } = types;
 
 const setItem = async (key, value) => AsyncStorage.setItem(key, JSON.stringify(value));
@@ -152,6 +154,15 @@ const Reducer = (state, action) => {
       return {
         ...state,
         password: action.payload,
+      };
+
+    case CHANGE_THEME:
+      // console.log(action.payload);
+      // console.log(action.payload ? colors.dark : colors.light);
+      return {
+        ...state,
+        isDarkMode: action.payload,
+        theme: action.payload ? colors.dark : colors.light,
       };
 
     default: return state;

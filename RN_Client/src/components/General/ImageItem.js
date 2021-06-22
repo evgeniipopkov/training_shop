@@ -3,22 +3,24 @@ import { Image, StyleSheet } from 'react-native';
 
 import constants from '../../constants/constants';
 
-const ImageItem = ({ src, widthCoef, heightCoef }) => (
-  <Image
-    source={{ uri: src }}
-    style={[
-      styles.image,
-      {
-        width: Math.round(constants.width * widthCoef),
-        height: Math.round(constants.width * heightCoef),
-      }]}
-  />
-);
+const ImageItem = ({ src, widthCoef, heightCoef }) => {
+  const styles = StyleSheet.create({
+    image: {
+      borderRadius: 10,
+    },
+  });
 
-const styles = StyleSheet.create({
-  image: {
-    borderRadius: 10,
-  },
-});
+  return (
+    <Image
+      source={{ uri: src }}
+      style={[
+        styles.image,
+        {
+          width: Math.round(constants.width * widthCoef),
+          height: Math.round(constants.width * heightCoef),
+        }]}
+    />
+  );
+};
 
 export default ImageItem;

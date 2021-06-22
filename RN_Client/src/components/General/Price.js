@@ -1,19 +1,24 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Text, StyleSheet } from 'react-native';
 
-import colors from '../../constants/colors';
+import context from '../../context/context';
 import constants from '../../constants/constants';
 import utils from '../../helpers/utils';
 
-const Price = ({ price, fontSize }) => (
-  <Text style={[styles.price, { fontSize }]}>{utils.getPrice(price)}</Text>
-);
+const Price = ({ price, fontSize }) => {
+  const { theme } = useContext(context);
 
-const styles = StyleSheet.create({
-  price: {
-    fontFamily: constants.fontMainBold,
-    color: colors.main,
-  },
-});
+  const styles = StyleSheet.create({
+    price: {
+      fontFamily: constants.fontMainBold,
+      color: theme.main,
+      fontSize,
+    },
+  });
+
+  return (
+    <Text style={styles.price}>{utils.getPrice(price)}</Text>
+  );
+};
 
 export default Price;

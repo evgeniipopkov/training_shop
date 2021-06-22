@@ -10,7 +10,6 @@ import Alert from '../components/General/Alert';
 import Description from '../components/Home/Description';
 
 import context from '../context/context';
-import colors from '../constants/colors';
 import constants from '../constants/constants';
 import API from '../api/api';
 
@@ -18,7 +17,7 @@ const MIN_HEIGHT_IMAGE = Math.round(constants.height * 0.6);
 const MAX_HEIGHT_IMAGE = Math.round(constants.height * 0.91);
 
 const DetailScreen = ({ navigation }) => {
-  const { currentProduct } = useContext(context);
+  const { theme, currentProduct } = useContext(context);
 
   const heightLayout = useRef(0);
   const heightImage = useRef(new Animated.Value(MIN_HEIGHT_IMAGE)).current;
@@ -42,6 +41,26 @@ const DetailScreen = ({ navigation }) => {
   useEffect(() => {
     getProduct();
   }, [currentProduct]);
+
+  const styles = StyleSheet.create({
+    container: {
+      width: '100%',
+      height: '100%',
+    },
+    image: {
+      width: '100%',
+    },
+    back: {
+      position: 'absolute',
+      top: 60,
+      left: 25,
+    },
+    refresh: {
+      position: 'absolute',
+      top: 60,
+      right: 25,
+    },
+  });
 
   const icons = [
     {
@@ -69,7 +88,7 @@ const DetailScreen = ({ navigation }) => {
 
   return (
     <>
-      <StatusBar translucent barStyle="dark-content" backgroundColor={colors.transparent} />
+      <StatusBar translucent barStyle="dark-content" backgroundColor={theme.transparent} />
       <View style={styles.container}>
         <Animated.Image
           style={[styles.image, { height: heightImage }]}
@@ -97,25 +116,5 @@ const DetailScreen = ({ navigation }) => {
     </>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    width: '100%',
-    height: '100%',
-  },
-  image: {
-    width: '100%',
-  },
-  back: {
-    position: 'absolute',
-    top: 60,
-    left: 25,
-  },
-  refresh: {
-    position: 'absolute',
-    top: 60,
-    right: 25,
-  },
-});
 
 export default DetailScreen;

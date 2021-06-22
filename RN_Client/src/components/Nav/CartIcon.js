@@ -3,21 +3,40 @@ import { View, StyleSheet, Text } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 import context from '../../context/context';
-import colors from '../../constants/colors';
 import constants from '../../constants/constants';
 
 const CartIcon = ({ iconName, isFull = false }) => {
-  const { cartProducts } = useContext(context);
+  const { theme, cartProducts } = useContext(context);
+
   const count = cartProducts.length
     ? cartProducts.reduce((acc, current) => acc + current.count, 0)
     : 0;
+
+  const styles = StyleSheet.create({
+    circle: {
+      position: 'absolute',
+      bottom: -7,
+      right: -7,
+      borderRadius: 15,
+      backgroundColor: theme.neonCarrot,
+      height: 18,
+      width: 18,
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    count: {
+      fontFamily: constants.fontMainRegular,
+      fontSize: 12,
+      color: theme.background,
+    },
+  });
 
   return (
     <View>
       <Icon
         name={iconName}
         size={28}
-        color={isFull ? colors.neonCarrot : colors.twilight}
+        color={isFull ? theme.neonCarrot : theme.twilight}
       />
       {count
         ? (
@@ -31,22 +50,3 @@ const CartIcon = ({ iconName, isFull = false }) => {
 };
 
 export default CartIcon;
-
-const styles = StyleSheet.create({
-  circle: {
-    position: 'absolute',
-    bottom: -7,
-    right: -7,
-    borderRadius: 15,
-    backgroundColor: colors.neonCarrot,
-    height: 18,
-    width: 18,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  count: {
-    fontFamily: constants.fontMainRegular,
-    fontSize: 12,
-    color: colors.background,
-  },
-});

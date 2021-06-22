@@ -13,13 +13,12 @@ import Alert from '../components/General/Alert';
 import Loader from '../components/General/Loader';
 
 import context from '../context/context';
-import colors from '../constants/colors';
 import constants from '../constants/constants';
 import strings from '../constants/strings';
 import API from '../api/api';
 
 const OrderScreen = ({ navigation }) => {
-  const { currentOrder, removeOrder } = useContext(context);
+  const { theme, currentOrder, removeOrder } = useContext(context);
 
   const [isQuestion, setIsQuestion] = useState(false);
   const [isError, setIsError] = useState(false);
@@ -42,10 +41,92 @@ const OrderScreen = ({ navigation }) => {
     } catch (e) {
       setIsError(true);
       setError(strings.order.errors.remove);
-    } finally {
       setIsLoading(false);
     }
   };
+
+  const styles = StyleSheet.create({
+    header: {
+      width: '100%',
+      alignItems: 'center',
+      paddingTop: 25,
+      paddingBottom: 35,
+      backgroundColor: theme.background,
+      flexDirection: 'row',
+    },
+    backWrapper: {
+      flex: 1,
+      alignItems: 'flex-start',
+      justifyContent: 'center',
+    },
+    titleWrapper: {
+      flex: 2,
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    title: {
+      fontFamily: constants.fontMainMedium,
+      fontSize: 17,
+      color: theme.main,
+    },
+    dateWrapper: {
+      flex: 1,
+      alignItems: 'flex-end',
+      justifyContent: 'center',
+    },
+    date: {
+      fontFamily: constants.fontMainRegular,
+      fontSize: 13,
+      color: theme.gullGray,
+    },
+    productWrapper: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      marginBottom: 25,
+    },
+    description: {
+      paddingLeft: 25,
+      justifyContent: 'space-between',
+    },
+    info: {
+      flexDirection: 'row',
+      alignItems: 'center',
+    },
+    name: {
+      fontFamily: constants.fontMainRegular,
+      color: theme.gullGray,
+      fontSize: 15,
+      marginTop: 5,
+    },
+    footer: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      marginVertical: 25,
+    },
+    sumWrapper: {
+      flexDirection: 'row',
+    },
+    sum: {
+      fontFamily: constants.fontMainBold,
+      color: theme.main,
+      fontSize: 18,
+      marginRight: 10,
+    },
+    button: {
+      width: '40%',
+      paddingVertical: 10,
+      alignItems: 'center',
+      justifyContent: 'center',
+      borderRadius: 5,
+      backgroundColor: theme.neonCarrot,
+    },
+    buttonText: {
+      fontFamily: constants.fontMainMedium,
+      fontSize: 16,
+      color: theme.background,
+    },
+  });
 
   const renderItem = ({ item }) => (
     <View style={styles.productWrapper}>
@@ -68,7 +149,7 @@ const OrderScreen = ({ navigation }) => {
         <Icon
           name="chevron-back-outline"
           size={30}
-          color={colors.main}
+          color={theme.main}
         />
       </TouchableOpacity>
       <View style={styles.titleWrapper}>
@@ -124,88 +205,5 @@ const OrderScreen = ({ navigation }) => {
     </Container>
   );
 };
-
-const styles = StyleSheet.create({
-  header: {
-    width: '100%',
-    alignItems: 'center',
-    paddingTop: 25,
-    paddingBottom: 35,
-    backgroundColor: colors.background,
-    flexDirection: 'row',
-  },
-  backWrapper: {
-    flex: 1,
-    alignItems: 'flex-start',
-    justifyContent: 'center',
-  },
-  titleWrapper: {
-    flex: 2,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  title: {
-    fontFamily: constants.fontMainMedium,
-    fontSize: 17,
-    color: colors.main,
-  },
-  dateWrapper: {
-    flex: 1,
-    alignItems: 'flex-end',
-    justifyContent: 'center',
-  },
-  date: {
-    fontFamily: constants.fontMainRegular,
-    fontSize: 13,
-    color: colors.gullGray,
-  },
-  productWrapper: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    marginBottom: 25,
-  },
-  description: {
-    paddingLeft: 25,
-    justifyContent: 'space-between',
-  },
-  info: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  name: {
-    fontFamily: constants.fontMainRegular,
-    color: colors.gullGray,
-    fontSize: 15,
-    marginTop: 5,
-  },
-  footer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginVertical: 25,
-  },
-  sumWrapper: {
-    flexDirection: 'row',
-  },
-  sum: {
-    fontFamily: constants.fontMainBold,
-    color: colors.main,
-    fontSize: 18,
-    marginRight: 10,
-  },
-  button: {
-    width: '40%',
-    paddingVertical: 10,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 5,
-    backgroundColor: colors.neonCarrot,
-  },
-  buttonText: {
-    fontFamily: constants.fontMainMedium,
-    fontSize: 16,
-    color: colors.background,
-  },
-});
 
 export default OrderScreen;

@@ -12,7 +12,6 @@ import Question from '../General/Question';
 
 import context from '../../context/context';
 import strings from '../../constants/strings';
-import colors from '../../constants/colors';
 import constants from '../../constants/constants';
 import API from '../../api/api';
 
@@ -20,7 +19,7 @@ const OrdersList = ({
   navigation, header, setError, setIsError, setIsLoading,
 }) => {
   const {
-    orders, initOrders, removeOrder, login, password,
+    theme, orders, initOrders, removeOrder, login, password, isDarkMode,
   } = useContext(context);
   const [isQuestion, setIsQuestion] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
@@ -33,16 +32,16 @@ const OrdersList = ({
     {
       title: strings.order.header.new,
       data: removedOrders,
-      color: colors.mayGreen,
+      color: theme.mayGreen,
       type: 'removed',
       image: require('../../assets/images/shopping-bag_active.png'),
     },
     {
       title: strings.order.header.received,
       data: nonRemovedOrders,
-      color: colors.main,
+      color: theme.main,
       type: 'nonRemoved',
-      image: constants.isDarkMode
+      image: isDarkMode
         ? require('../../assets/images/shopping-bag_unactive_dark.png')
         : require('../../assets/images/shopping-bag_unactive.png'),
     },
@@ -82,12 +81,50 @@ const OrdersList = ({
     }
   };
 
+  const styles = StyleSheet.create({
+    sectionList: {
+      marginBottom: 15,
+    },
+    sectionHeader: {
+      paddingBottom: 15,
+      backgroundColor: theme.background,
+    },
+    sectionText: {
+      fontFamily: constants.fontMainRegular,
+      fontSize: 15,
+    },
+    wrapper: {
+      flexDirection: 'row',
+      alignItems: 'center',
+    },
+    item: {
+      marginHorizontal: 10,
+      marginVertical: 10,
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+    },
+    image: {
+      height: 51,
+      width: 40,
+    },
+    info: {
+      marginLeft: 30,
+    },
+    number: {
+      fontFamily: constants.fontMainRegular,
+      fontSize: 14,
+      paddingVertical: 5,
+      color: theme.gullGray,
+    },
+  });
+
   const renderHeader = ({ section }) => (
     // eslint-disable-next-line react-native/no-inline-styles
     <View style={[styles.sectionHeader, { paddingTop: section.type === 'removed' ? 0 : 15 }]}>
       <Text style={[
         styles.sectionText,
-        { color: section.type === 'removed' ? colors.mayGreen : colors.main },
+        { color: section.type === 'removed' ? theme.mayGreen : theme.main },
       ]}
       >
         {section.title}
@@ -152,43 +189,5 @@ const OrdersList = ({
     </>
   );
 };
-
-const styles = StyleSheet.create({
-  sectionList: {
-    marginBottom: 15,
-  },
-  sectionHeader: {
-    paddingBottom: 15,
-    backgroundColor: colors.background,
-  },
-  sectionText: {
-    fontFamily: constants.fontMainRegular,
-    fontSize: 15,
-  },
-  wrapper: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  item: {
-    marginHorizontal: 10,
-    marginVertical: 10,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-  },
-  image: {
-    height: 51,
-    width: 40,
-  },
-  info: {
-    marginLeft: 30,
-  },
-  number: {
-    fontFamily: constants.fontMainRegular,
-    fontSize: 14,
-    paddingVertical: 5,
-    color: colors.gullGray,
-  },
-});
 
 export default OrdersList;

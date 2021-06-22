@@ -8,7 +8,6 @@ import Button from '../General/Button';
 import Price from '../General/Price';
 
 import context from '../../context/context';
-import colors from '../../constants/colors';
 import constants from '../../constants/constants';
 import strings from '../../constants/strings';
 import utils from '../../helpers/utils';
@@ -30,7 +29,7 @@ const Description = ({
   max,
 }) => {
   const {
-    favoriteProducts, addFavorite, removeFavorite, cartProducts, addCart,
+    theme, favoriteProducts, addFavorite, removeFavorite, cartProducts, addCart,
   } = useContext(context);
   const [favorite, setFavorite] = useState(
     favoriteProducts.length
@@ -67,6 +66,64 @@ const Description = ({
     addCart(id);
   };
 
+  const styles = StyleSheet.create({
+    container: {
+      position: 'absolute',
+      width: '100%',
+      backgroundColor: theme.background,
+      borderRadius: 30,
+      paddingHorizontal: 25,
+    },
+    line: {
+      marginTop: MARGIN,
+    },
+    header: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      width: '100%',
+      marginVertical: MARGIN,
+    },
+    wrapperViews: {
+      flexDirection: 'row',
+      alignItems: 'center',
+    },
+    iconViews: {
+      paddingLeft: 10,
+    },
+    views: {
+      fontFamily: constants.fontMainRegular,
+      fontSize: 16,
+      color: theme.gullGray,
+    },
+    lineWrapper: {
+      width: '100%',
+      alignItems: 'center',
+    },
+    name: {
+      fontFamily: constants.fontMainMedium,
+      fontSize: 25,
+      color: theme.main,
+    },
+    balanceWrapper: {
+      width: '100%',
+      marginVertical: MARGIN,
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+    },
+    balance: {
+      fontFamily: constants.fontMainMedium,
+      fontSize: 15,
+      color: theme.neonCarrot,
+    },
+    description: {
+      fontFamily: constants.fontMainRegular,
+      fontSize: 15,
+      color: theme.gullGray,
+    },
+  });
+
   return (
     <Animated.View
       // eslint-disable-next-line no-param-reassign
@@ -89,7 +146,7 @@ const Description = ({
             style={styles.iconViews}
             name={down ? 'chevron-down-outline' : 'chevron-up-outline'}
             size={25}
-            color={colors.gullGray}
+            color={theme.gullGray}
           />
         </TouchableOpacity>
       </View>
@@ -101,7 +158,7 @@ const Description = ({
             style={styles.iconViews}
             name="eye-outline"
             size={22}
-            color={colors.gullGray}
+            color={theme.gullGray}
           />
         </View>
       </View>
@@ -119,14 +176,14 @@ const Description = ({
               <Icon
                 name="star"
                 size={25}
-                color={colors.neonCarrot}
+                color={theme.neonCarrot}
               />
             )
             : (
               <Icon
                 name="star-outline"
                 size={25}
-                color={colors.gullGray}
+                color={theme.gullGray}
               />
             )}
         </TouchableOpacity>
@@ -140,63 +197,5 @@ const Description = ({
     </Animated.View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    position: 'absolute',
-    width: '100%',
-    backgroundColor: colors.background,
-    borderRadius: 30,
-    paddingHorizontal: 25,
-  },
-  line: {
-    marginTop: MARGIN,
-  },
-  header: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    width: '100%',
-    marginVertical: MARGIN,
-  },
-  wrapperViews: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  iconViews: {
-    paddingLeft: 10,
-  },
-  views: {
-    fontFamily: constants.fontMainRegular,
-    fontSize: 16,
-    color: colors.gullGray,
-  },
-  lineWrapper: {
-    width: '100%',
-    alignItems: 'center',
-  },
-  name: {
-    fontFamily: constants.fontMainMedium,
-    fontSize: 25,
-    color: colors.main,
-  },
-  balanceWrapper: {
-    width: '100%',
-    marginVertical: MARGIN,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-  balance: {
-    fontFamily: constants.fontMainMedium,
-    fontSize: 15,
-    color: colors.neonCarrot,
-  },
-  description: {
-    fontFamily: constants.fontMainRegular,
-    fontSize: 15,
-    color: colors.gullGray,
-  },
-});
 
 export default Description;

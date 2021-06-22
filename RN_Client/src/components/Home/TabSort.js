@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import {
   Text, View, StyleSheet, TouchableOpacity,
 } from 'react-native';
 
-import colors from '../../constants/colors';
+import context from '../../context/context';
 import constants from '../../constants/constants';
 import strings from '../../constants/strings';
 
@@ -12,6 +12,8 @@ const {
 } = constants.types.typeСlothes;
 
 const TabSort = ({ active, setActive }) => {
+  const { theme } = useContext(context);
+
   const items = [
     {
       key: ALL_CLOTHES,
@@ -39,6 +41,20 @@ const TabSort = ({ active, setActive }) => {
     },
   ];
 
+  const styles = StyleSheet.create({
+    container: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      paddingBottom: 25,
+      backgroundColor: theme.background,
+    },
+    label: {
+      fontFamily: constants.fontMainBold,
+      color: theme.main,
+      fontSize: 15,
+    },
+  });
+
   return (
     <View style={styles.container}>
       {items.map((item) => (
@@ -46,7 +62,7 @@ const TabSort = ({ active, setActive }) => {
           <Text
             style={[
               styles.label,
-              { color: item.isActive ? colors.neonCarrot : colors.main },
+              { color: item.isActive ? theme.neonCarrot : theme.main },
             ]}
           >
             {item.label}
@@ -56,19 +72,5 @@ const TabSort = ({ active, setActive }) => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    paddingBottom: 25,
-    backgroundColor: colors.background,
-  },
-  label: {
-    fontFamily: constants.fontMainBold,
-    color: colors.main,
-    fontSize: 15,
-  },
-});
 
 export default TabSort;

@@ -46,7 +46,7 @@ export default {
     empty: 'Заказы отсутствуют',
     successOrder: 'Заказ успешно оформлен',
   },
-  searchPlaceholder: 'Поиск ...',
+  searchPlaceholder: 'Поиск',
   sum: 'Сумма',
   empty: 'Товары отсутствуют',
   logout: 'Выход',

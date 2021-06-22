@@ -20,6 +20,7 @@ const {
   INIT_ORDERS,
   SET_LOGIN,
   SET_PASSWORD,
+  CHANGE_THEME,
 } = types;
 
 const compareArray = (a, b) => {
@@ -32,6 +33,8 @@ const compareArray = (a, b) => {
 
 const State = ({ children }) => {
   const initialState = {
+    isDarkMode: false,
+    theme: '',
     orders: [],
     products: [],
     filterProducts: [],
@@ -46,6 +49,7 @@ const State = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   const init = async (products) => {
+    const isDarkMode = await AsyncStorage.getItem('isDarkMode');
     const favoritesString = await AsyncStorage.getItem('favoriteProducts');
     const favorites = favoritesString ? await JSON.parse(favoritesString) : [];
     const cartsString = await AsyncStorage.getItem('cartProducts');
@@ -72,8 +76,18 @@ const State = ({ children }) => {
         products,
         favorites: newFavorites,
         carts: newCarts,
+        isDarkMode: Boolean(isDarkMode),
       },
     });
+  };
+
+  const initTheme = (DarkMode) => {
+    dispatch({ type: CHANGE_THEME, payload: DarkMode });
+  };
+
+  const changeTheme = (DarkMode) => {
+    AsyncStorage.setItem('isDarkMode', JSON.stringify(DarkMode));
+    dispatch({ type: CHANGE_THEME, payload: DarkMode });
   };
 
   const initOrders = (orders) => dispatch({ type: INIT_ORDERS, payload: orders });
@@ -93,6 +107,8 @@ const State = ({ children }) => {
   return (
     <Context.Provider
       value={{
+        isDarkMode: state.isDarkMode,
+        theme: state.theme,
         orders: state.orders,
         products: state.products,
         filterProducts: state.filterProducts,
@@ -116,6 +132,8 @@ const State = ({ children }) => {
         initOrders,
         setLogin,
         setPassword,
+        changeTheme,
+        initTheme,
       }}
     >
       {children}

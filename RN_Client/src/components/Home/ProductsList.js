@@ -34,6 +34,12 @@ const ProductsList = ({
     getProducts();
   };
 
+  const styles = StyleSheet.create({
+    content: {
+      justifyContent: 'space-between',
+    },
+  });
+
   const renderItem = ({ item }) => (
     <ProductListItem
       key={item.id}
@@ -63,11 +69,5 @@ const ProductsList = ({
     />
   );
 };
-
-const styles = StyleSheet.create({
-  content: {
-    justifyContent: 'space-between',
-  },
-});
 
 export default ProductsList;

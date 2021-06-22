@@ -16,13 +16,12 @@ import Loader from '../components/General/Loader';
 import Alert from '../components/General/Alert';
 
 import API from '../api/api';
-import colors from '../constants/colors';
 import strings from '../constants/strings';
 import constants from '../constants/constants';
 import context from '../context/context';
 
 const AuthScreen = ({ setStatusLoading }) => {
-  const { setLogin, setPassword } = useContext(context);
+  const { theme, setLogin, setPassword } = useContext(context);
 
   const [localLogin, setlocalLogin] = useState('');
   const [localPassword, setlocalPassword] = useState('');
@@ -78,7 +77,6 @@ const AuthScreen = ({ setStatusLoading }) => {
     } catch (e) {
       setIsError(true);
       setError(strings.auth.error);
-    } finally {
       setIsLoading(false);
     }
   };
@@ -92,6 +90,50 @@ const AuthScreen = ({ setStatusLoading }) => {
       }
     }, 100);
   };
+
+  const styles = StyleSheet.create({
+    keyboardAvoidingView: {
+      flex: 1,
+    },
+    container: {
+      flex: 1,
+      justifyContent: 'space-around',
+      backgroundColor: theme.background,
+      alignItems: 'center',
+      paddingVertical: 25,
+    },
+    headerWrapper: {
+      marginTop: 50,
+      alignItems: 'center',
+    },
+    header: {
+      marginTop: 5,
+      fontFamily: constants.fontMainMedium,
+      fontSize: 23,
+      color: theme.main,
+    },
+    name: {
+      fontFamily: constants.fontMainRegular,
+      fontSize: 16,
+      color: theme.main,
+    },
+    buttonContainer: {
+      marginTop: 40,
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    buttonText: {
+      color: theme.neonCarrot,
+      fontFamily: constants.fontMainRegular,
+      fontSize: 20,
+      paddingLeft: 10,
+    },
+    loader: {
+      flex: 0,
+      marginTop: 40,
+    },
+  });
 
   return (
     <>
@@ -124,7 +166,7 @@ const AuthScreen = ({ setStatusLoading }) => {
                     <Icon
                       name="log-in-outline"
                       size={26}
-                      color={colors.neonCarrot}
+                      color={theme.neonCarrot}
                     />
                     <Text style={styles.buttonText}>{strings.auth.button}</Text>
                   </TouchableOpacity>
@@ -137,49 +179,5 @@ const AuthScreen = ({ setStatusLoading }) => {
     </>
   );
 };
-
-const styles = StyleSheet.create({
-  keyboardAvoidingView: {
-    flex: 1,
-  },
-  container: {
-    flex: 1,
-    justifyContent: 'space-around',
-    backgroundColor: colors.background,
-    alignItems: 'center',
-    paddingVertical: 25,
-  },
-  headerWrapper: {
-    marginTop: 50,
-    alignItems: 'center',
-  },
-  header: {
-    marginTop: 5,
-    fontFamily: constants.fontMainMedium,
-    fontSize: 23,
-    color: colors.main,
-  },
-  name: {
-    fontFamily: constants.fontMainRegular,
-    fontSize: 16,
-    color: colors.main,
-  },
-  buttonContainer: {
-    marginTop: 40,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  buttonText: {
-    color: colors.neonCarrot,
-    fontFamily: constants.fontMainRegular,
-    fontSize: 20,
-    paddingLeft: 10,
-  },
-  loader: {
-    flex: 0,
-    marginTop: 40,
-  },
-});
 
 export default AuthScreen;

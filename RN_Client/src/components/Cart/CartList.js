@@ -7,6 +7,12 @@ import context from '../../context/context';
 const CartList = ({ header }) => {
   const { cartProducts, removeCart } = useContext(context);
 
+  const styles = StyleSheet.create({
+    list: {
+      marginBottom: 145,
+    },
+  });
+
   const renderItem = ({ item }) => (
     <CartListItem
       id={item.id}
@@ -32,11 +38,5 @@ const CartList = ({ header }) => {
     />
   );
 };
-
-const styles = StyleSheet.create({
-  list: {
-    marginBottom: 145,
-  },
-});
 
 export default CartList;

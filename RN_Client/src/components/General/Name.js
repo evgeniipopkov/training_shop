@@ -1,18 +1,23 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Text, StyleSheet } from 'react-native';
 
-import colors from '../../constants/colors';
+import context from '../../context/context';
 import constants from '../../constants/constants';
 
-const Name = ({ name, fontSize }) => (
-  <Text style={[styles.name, { fontSize }]}>{name}</Text>
-);
+const Name = ({ name, fontSize }) => {
+  const { theme } = useContext(context);
 
-const styles = StyleSheet.create({
-  name: {
-    fontFamily: constants.fontMainRegular,
-    color: colors.gullGray,
-  },
-});
+  const styles = StyleSheet.create({
+    name: {
+      fontFamily: constants.fontMainRegular,
+      color: theme.gullGray,
+      fontSize,
+    },
+  });
+
+  return (
+    <Text style={styles.name}>{name}</Text>
+  );
+};
 
 export default Name;

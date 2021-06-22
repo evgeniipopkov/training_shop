@@ -1,69 +1,71 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import {
   View, Modal, StyleSheet, Text, TouchableOpacity, StatusBar,
 } from 'react-native';
 
-import colors from '../../constants/colors';
+import context from '../../context/context';
 import constants from '../../constants/constants';
 
 const Alert = ({
   title, success, isOpen, setIsOpen, showStatusBar = false,
-}) => (
-  <>
-    {isOpen
-      && (!constants.isDarkMode || showStatusBar)
-      && <StatusBar barStyle={colors.statusBar} backgroundColor={colors.modal} />}
-    <Modal animationType="none" transparent visible={isOpen}>
-      <View style={styles.container}>
-        <View style={[styles.window, constants.isDarkMode ? styles.darkModal : null]}>
-          <Text style={styles.text}>{title}</Text>
-          <TouchableOpacity style={styles.button} onPress={() => setIsOpen(false)}>
-            <Text style={[
-              styles.textButton,
-              { color: success ? colors.mayGreen : colors.neonCarrot },
-            ]}
-            >
-              OK
-            </Text>
-          </TouchableOpacity>
-        </View>
-      </View>
-    </Modal>
-  </>
-);
+}) => {
+  const { theme, isDarkMode } = useContext(context);
 
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: colors.modal,
-    width: '100%',
-    height: '100%',
-    justifyContent: 'center',
-  },
-  window: {
-    backgroundColor: colors.background,
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginHorizontal: 70,
-    padding: 30,
-    borderRadius: 20,
-    elevation: 5,
-  },
-  button: {
-    marginTop: 30,
-  },
-  textButton: {
-    fontFamily: constants.fontMainMedium,
-    fontSize: 16,
-  },
-  text: {
-    fontFamily: constants.fontMainRegular,
-    fontSize: 15,
-    color: colors.main,
-  },
-  darkModal: {
-    borderWidth: 1,
-    borderColor: colors.main,
-  },
-});
+  const styles = StyleSheet.create({
+    container: {
+      backgroundColor: theme.modal,
+      width: '100%',
+      height: '100%',
+      justifyContent: 'center',
+    },
+    window: {
+      backgroundColor: theme.background,
+      alignItems: 'center',
+      justifyContent: 'center',
+      marginHorizontal: 70,
+      padding: 30,
+      borderRadius: 20,
+      elevation: 5,
+    },
+    button: {
+      marginTop: 30,
+    },
+    textButton: {
+      fontFamily: constants.fontMainMedium,
+      fontSize: 16,
+      color: success ? theme.mayGreen : theme.neonCarrot,
+    },
+    text: {
+      fontFamily: constants.fontMainRegular,
+      fontSize: 15,
+      color: theme.main,
+      textAlign: 'center',
+    },
+    darkModal: {
+      borderWidth: 1,
+      borderColor: theme.main,
+    },
+  });
+
+  return (
+    <>
+      {isOpen
+        && (!isDarkMode || showStatusBar)
+        && <StatusBar barStyle={theme.statusBar} backgroundColor={theme.modal} />}
+      <Modal animationType="none" transparent visible={isOpen}>
+        <View style={styles.container}>
+          <View style={[styles.window, isDarkMode ? styles.darkModal : null]}>
+            <Text style={styles.text}>{title}</Text>
+            <TouchableOpacity style={styles.button} onPress={() => setIsOpen(false)}>
+              <Text style={styles.textButton}>
+                OK
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
+    </>
+  );
+};
 
 export default Alert;

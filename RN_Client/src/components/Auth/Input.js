@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import {
   TextInput, Keyboard, StyleSheet, View, TouchableOpacity,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
-import colors from '../../constants/colors';
+import context from '../../context/context';
 import strings from '../../constants/strings';
 import constants from '../../constants/constants';
 
@@ -16,9 +16,11 @@ const Input = ({
   onChangeText,
   secureTextEntry,
 }) => {
+  const { theme } = useContext(context);
+
   const [showPassword, setShowPassword] = useState(false);
   const [currentPlaceholder, setPlaceholder] = useState(placeholder);
-  const [currentPlaceholderColor, setPlaceholderColor] = useState(colors.twilight);
+  const [currentPlaceholderColor, setPlaceholderColor] = useState(theme.twilight);
   const [currentStyle, setStyle] = useState(null);
 
   const setState = (style, newPlaceholderColor, newPlaceholder = '') => {
@@ -29,11 +31,37 @@ const Input = ({
 
   useEffect(() => {
     if (!isValid) {
-      setState(styles.errorInput, colors.neonCarrot, strings.auth.validateInput);
+      setState(styles.errorInput, theme.neonCarrot, strings.auth.validateInput);
     } else {
-      setState(null, colors.twilight);
+      setState(null, theme.twilight);
     }
   }, [isValid]);
+
+  const styles = StyleSheet.create({
+    input: {
+      width: Math.round(constants.width * 0.6),
+      borderBottomWidth: 1,
+      fontFamily: constants.fontMainRegular,
+      fontSize: 16,
+      marginBottom: 10,
+      borderBottomColor: theme.twilight,
+      color: theme.twilight,
+      paddingVertical: 10,
+    },
+    focusedInput: {
+      borderBottomColor: theme.main,
+      color: theme.main,
+    },
+    errorInput: {
+      borderBottomColor: theme.neonCarrot,
+      color: theme.neonCarrot,
+    },
+    eye: {
+      position: 'absolute',
+      right: 5,
+      bottom: 20,
+    },
+  });
 
   const renderInput = (secure) => (
     <TextInput
@@ -47,8 +75,8 @@ const Input = ({
       placeholderTextColor={currentPlaceholderColor}
       onChangeText={(text) => onChangeText(text)}
       onSubmitEditing={Keyboard.dismiss}
-      onFocus={() => setState(styles.focusedInput, colors.main)}
-      onBlur={() => setState(null, colors.twilight)}
+      onFocus={() => setState(styles.focusedInput, theme.main)}
+      onBlur={() => setState(null, theme.twilight)}
     />
   );
 
@@ -67,7 +95,7 @@ const Input = ({
                   <Icon
                     name={showPassword ? 'eye-off-outline' : 'eye-outline'}
                     size={22}
-                    color={colors.twilight}
+                    color={theme.twilight}
                   />
                 </TouchableOpacity>
               )
@@ -78,31 +106,5 @@ const Input = ({
     </>
   );
 };
-
-const styles = StyleSheet.create({
-  input: {
-    width: Math.round(constants.width * 0.6),
-    borderBottomWidth: 1,
-    fontFamily: constants.fontMainRegular,
-    fontSize: 16,
-    marginBottom: 10,
-    borderBottomColor: colors.twilight,
-    color: colors.twilight,
-    paddingVertical: 10,
-  },
-  focusedInput: {
-    borderBottomColor: colors.main,
-    color: colors.main,
-  },
-  errorInput: {
-    borderBottomColor: colors.neonCarrot,
-    color: colors.neonCarrot,
-  },
-  eye: {
-    position: 'absolute',
-    right: 5,
-    bottom: 20,
-  },
-});
 
 export default Input;

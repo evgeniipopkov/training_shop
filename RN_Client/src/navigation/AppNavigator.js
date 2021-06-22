@@ -16,7 +16,6 @@ import context from '../context/context';
 import Alert from '../components/General/Alert';
 import Loader from '../components/General/Loader';
 import TabIcon from '../components/Nav/TabIcon';
-import colors from '../constants/colors';
 import strings from '../constants/strings';
 import constants from '../constants/constants';
 import API from '../api/api';
@@ -35,6 +34,8 @@ const SCREEN_ORDER = 'SCREEN_ORDER';
 
 const AppNavigator = () => {
   const {
+    theme,
+    initTheme,
     setCurrentProduct,
     setCurrentOrder,
     init,
@@ -67,6 +68,10 @@ const AppNavigator = () => {
   };
 
   const bootstrapAsync = async () => {
+    const isDarkModeString = await AsyncStorage.getItem('isDarkMode');
+    const isDarkMode = await JSON.parse(isDarkModeString);
+    initTheme(Boolean(isDarkMode));
+
     const storageLogin = await AsyncStorage.getItem(
       `${constants.appName}${constants.appVersion}login`,
     );
@@ -261,40 +266,40 @@ const AppNavigator = () => {
     );
   };
 
+  const styles = StyleSheet.create({
+    container: {
+      height: '100%',
+      backgroundColor: theme.background,
+    },
+    emptyContainer: {
+      height: '100%',
+      width: '100%',
+      backgroundColor: theme.background,
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    screen: {
+      height: '91%',
+    },
+    tabBar: {
+      borderTopLeftRadius: 30,
+      borderTopRightRadius: 30,
+      flexDirection: 'row',
+      width: '100%',
+      height: '9%',
+      backgroundColor: theme.background,
+      alignItems: 'center',
+      justifyContent: 'space-around',
+      elevation: 10,
+    },
+  });
+
   return (
     <>
-      <StatusBar barStyle={colors.statusBar} backgroundColor={colors.background} />
+      <StatusBar barStyle={theme.statusBar} backgroundColor={theme.background} />
       {render()}
     </>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    height: '100%',
-    backgroundColor: colors.background,
-  },
-  emptyContainer: {
-    height: '100%',
-    width: '100%',
-    backgroundColor: colors.background,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  screen: {
-    height: '91%',
-  },
-  tabBar: {
-    borderTopLeftRadius: 30,
-    borderTopRightRadius: 30,
-    flexDirection: 'row',
-    width: '100%',
-    height: '9%',
-    backgroundColor: colors.background,
-    alignItems: 'center',
-    justifyContent: 'space-around',
-    elevation: 10,
-  },
-});
 
 export default AppNavigator;

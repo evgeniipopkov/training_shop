@@ -10,14 +10,13 @@ import Trash from '../General/Trash';
 import ImageItem from '../General/ImageItem';
 
 import context from '../../context/context';
-import colors from '../../constants/colors';
 import constants from '../../constants/constants';
 
 const CartListItem = ({
   id, name, price, src, count, remove,
 }) => {
+  const { theme, changeCount } = useContext(context);
   const [countState, setCount] = useState(count);
-  const { changeCount } = useContext(context);
 
   const minus = () => {
     if (countState >= 2) {
@@ -31,6 +30,40 @@ const CartListItem = ({
     setCount(countState + 1);
   };
 
+  const styles = StyleSheet.create({
+    container: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      marginBottom: 25,
+    },
+    wrapper: {
+      flexDirection: 'row',
+    },
+    description: {
+      paddingLeft: 25,
+      justifyContent: 'space-between',
+    },
+    counter: {
+      flexDirection: 'row',
+      alignItems: 'center',
+    },
+    circle: {
+      borderRadius: 20,
+      backgroundColor: theme.gullGray,
+      height: 22,
+      width: 22,
+      alignItems: 'center',
+      justifyContent: 'center',
+      marginHorizontal: 10,
+    },
+    count: {
+      fontFamily: constants.fontMainRegular,
+      fontSize: 12,
+      color: theme.background,
+    },
+  });
+
   return (
     <View style={styles.container}>
       <View style={styles.wrapper}>
@@ -43,7 +76,7 @@ const CartListItem = ({
               <Icon
                 name="remove-outline"
                 size={20}
-                color={colors.main}
+                color={theme.main}
               />
             </TouchableOpacity>
             <View style={styles.circle}>
@@ -53,7 +86,7 @@ const CartListItem = ({
               <Icon
                 name="add-outline"
                 size={20}
-                color={colors.main}
+                color={theme.main}
               />
             </TouchableOpacity>
           </View>
@@ -63,39 +96,5 @@ const CartListItem = ({
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    marginBottom: 25,
-  },
-  wrapper: {
-    flexDirection: 'row',
-  },
-  description: {
-    paddingLeft: 25,
-    justifyContent: 'space-between',
-  },
-  counter: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  circle: {
-    borderRadius: 20,
-    backgroundColor: colors.gullGray,
-    height: 22,
-    width: 22,
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginHorizontal: 10,
-  },
-  count: {
-    fontFamily: constants.fontMainRegular,
-    fontSize: 12,
-    color: colors.background,
-  },
-});
 
 export default CartListItem;

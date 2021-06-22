@@ -1,20 +1,24 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { ActivityIndicator, View, StyleSheet } from 'react-native';
 
-import colors from '../../constants/colors';
+import context from '../../context/context';
 
-const Loader = ({ style }) => (
-  <View style={[styles.container, style]}>
-    <ActivityIndicator size="large" color={colors.main} />
-  </View>
-);
+const Loader = ({ style }) => {
+  const { theme } = useContext(context);
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    backgroundColor: colors.background,
-  },
-});
+  const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      justifyContent: 'center',
+      backgroundColor: theme.background,
+    },
+  });
+
+  return (
+    <View style={[styles.container, style]}>
+      <ActivityIndicator size="large" color={theme.main} />
+    </View>
+  );
+};
 
 export default Loader;

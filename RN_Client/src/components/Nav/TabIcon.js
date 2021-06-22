@@ -1,22 +1,41 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Text, View, StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 import CartIcon from './CartIcon';
 
-import colors from '../../constants/colors';
+import context from '../../context/context';
 import constants from '../../constants/constants';
 
 const TabIcon = ({
   iconName, label, isFull = false, isCart = false,
 }) => {
+  const { theme } = useContext(context);
+
+  const styles = StyleSheet.create({
+    container: {
+      borderRadius: 12,
+      flexDirection: 'row',
+      backgroundColor: theme.innerBackgroud,
+      paddingVertical: 7,
+      paddingHorizontal: 12,
+      alignItems: 'center',
+    },
+    label: {
+      paddingLeft: 12,
+      color: theme.neonCarrot,
+      fontFamily: constants.fontMainRegular,
+      fontSize: 15,
+    },
+  });
+
   const renderIcon = () => (isCart
     ? <CartIcon iconName={iconName} isFull={isFull} />
     : (
       <Icon
         name={iconName}
         size={28}
-        color={isFull ? colors.neonCarrot : colors.twilight}
+        color={isFull ? theme.neonCarrot : theme.twilight}
       />
     ));
 
@@ -31,20 +50,3 @@ const TabIcon = ({
 };
 
 export default TabIcon;
-
-const styles = StyleSheet.create({
-  container: {
-    borderRadius: 12,
-    flexDirection: 'row',
-    backgroundColor: colors.innerBackgroud,
-    paddingVertical: 7,
-    paddingHorizontal: 12,
-    alignItems: 'center',
-  },
-  label: {
-    paddingLeft: 12,
-    color: colors.neonCarrot,
-    fontFamily: constants.fontMainRegular,
-    fontSize: 15,
-  },
-});

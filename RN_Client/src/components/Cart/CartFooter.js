@@ -1,5 +1,7 @@
 import React, { useContext } from 'react';
-import { Text, View, StyleSheet } from 'react-native';
+import {
+  Text, View, StyleSheet, ToastAndroid,
+} from 'react-native';
 
 import Button from '../General/Button';
 import Price from '../General/Price';
@@ -10,7 +12,7 @@ import constants from '../../constants/constants';
 import API from '../../api/api';
 
 const CartFooter = ({
-  setMessage, setSuccess, setIsMessage, setIsLoading,
+  setMessage, setIsMessage, setIsLoading,
 }) => {
   const {
     theme, cartProducts, clearCart, initOrders, login, password,
@@ -25,17 +27,15 @@ const CartFooter = ({
         password,
         products: cartProducts.map(({ id, count, price }) => ({ id, count, price })),
       });
-      setMessage(strings.order.successOrder);
-      setSuccess(true);
+      ToastAndroid.show(strings.order.successOrder, ToastAndroid.SHORT);
       clearCart();
       const orders = await API.getOrders({ login, password });
       initOrders(orders);
     } catch (e) {
       const error = await e.json();
       setMessage(error.message);
-      setSuccess(false);
-    } finally {
       setIsMessage(true);
+    } finally {
       setIsLoading(false);
     }
   };

@@ -172,7 +172,7 @@ const OrdersScreen = ({
               setIsError={setIsError}
               setIsLoading={setIsLoading}
             />
-            <Alert title={error} success={false} isOpen={isError} setIsOpen={setIsError} />
+            <Alert title={error} isOpen={isError} setIsOpen={setIsError} />
           </>
         )
         : <Loader />}

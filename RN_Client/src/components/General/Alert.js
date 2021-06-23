@@ -7,7 +7,7 @@ import context from '../../context/context';
 import constants from '../../constants/constants';
 
 const Alert = ({
-  title, success, isOpen, setIsOpen, showStatusBar = false,
+  title, isOpen, setIsOpen, showStatusBar = false,
 }) => {
   const { theme } = useContext(context);
 
@@ -33,7 +33,7 @@ const Alert = ({
     textButton: {
       fontFamily: constants.fontMainMedium,
       fontSize: 16,
-      color: success ? theme.mayGreen : theme.neonCarrot,
+      color: theme.neonCarrot,
     },
     text: {
       fontFamily: constants.fontMainRegular,

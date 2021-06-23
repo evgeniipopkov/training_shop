@@ -112,7 +112,7 @@ const DetailScreen = ({ navigation }) => {
           />
         )}
       </View>
-      <Alert title={error} success={false} isOpen={isError} setIsOpen={setIsError} showStatusBar />
+      <Alert title={error} isOpen={isError} setIsOpen={setIsError} showStatusBar />
     </>
   );
 };

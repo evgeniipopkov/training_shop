@@ -36,7 +36,7 @@ const HomeScreen = ({ navigation }) => {
         setError={setError}
         setIsError={setIsError}
       />
-      <Alert title={error} success={false} isOpen={isError} setIsOpen={setIsError} />
+      <Alert title={error} isOpen={isError} setIsOpen={setIsError} />
     </Container>
   );
 };

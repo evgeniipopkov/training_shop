@@ -261,7 +261,7 @@ const AppNavigator = () => {
         <View style={styles.tabBar}>
           {renderTabs()}
         </View>
-        <Alert title={error} success={false} isOpen={isError} setIsOpen={setIsError} />
+        <Alert title={error} isOpen={isError} setIsOpen={setIsError} />
       </View>
     );
   };

@@ -1,6 +1,11 @@
 import React, { useContext, useState } from 'react';
 import {
-  Text, View, StyleSheet, TouchableOpacity, FlatList,
+  Text,
+  View,
+  StyleSheet,
+  TouchableOpacity,
+  FlatList,
+  ToastAndroid,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
@@ -36,6 +41,7 @@ const OrderScreen = ({ navigation }) => {
       const response = await API.deleteOrder(currentOrder.orderid);
       if (response.result) {
         removeOrder(currentOrder.orderid);
+        ToastAndroid.show(strings.order.cancelSuccess, ToastAndroid.SHORT);
         navigation();
       }
     } catch (e) {
@@ -198,7 +204,7 @@ const OrderScreen = ({ navigation }) => {
               setIsOpen={setIsQuestion}
               onPress={deleteOrder}
             />
-            <Alert title={error} success={false} isOpen={isError} setIsOpen={setIsError} />
+            <Alert title={error} isOpen={isError} setIsOpen={setIsError} />
           </>
         )
         : <Loader />}

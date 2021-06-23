@@ -15,7 +15,6 @@ const CartScreen = () => {
   const { cartProducts } = useContext(context);
 
   const [isMessage, setIsMessage] = useState(false);
-  const [success, setSuccess] = useState(false);
   const [message, setMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
@@ -34,7 +33,6 @@ const CartScreen = () => {
                   />
                   <CartFooter
                     setIsMessage={setIsMessage}
-                    setSuccess={setSuccess}
                     setMessage={setMessage}
                     setIsLoading={setIsLoading}
                   />
@@ -43,7 +41,6 @@ const CartScreen = () => {
               : <Empty header={renderHeader()} />}
             <Alert
               title={message}
-              success={success}
               isOpen={isMessage}
               setIsOpen={setIsMessage}
             />

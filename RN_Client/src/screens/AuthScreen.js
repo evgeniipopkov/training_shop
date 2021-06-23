@@ -175,7 +175,7 @@ const AuthScreen = ({ setStatusLoading }) => {
           </View>
         </TouchableWithoutFeedback>
       </KeyboardAvoidingView>
-      <Alert title={error} success={false} isOpen={isError} setIsOpen={setIsError} />
+      <Alert title={error} isOpen={isError} setIsOpen={setIsError} />
     </>
   );
 };

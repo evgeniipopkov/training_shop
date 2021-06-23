@@ -1,7 +1,14 @@
 /* eslint-disable global-require */
 import React, { useContext, useState } from 'react';
 import {
-  SectionList, Text, View, StyleSheet, Image, RefreshControl, TouchableOpacity,
+  SectionList,
+  Text,
+  View,
+  StyleSheet,
+  Image,
+  RefreshControl,
+  TouchableOpacity,
+  ToastAndroid,
 } from 'react-native';
 
 import Empty from '../General/Empty';
@@ -72,6 +79,7 @@ const OrdersList = ({
       const response = await API.deleteOrder(removeIdOrder);
       if (response.result) {
         removeOrder(removeIdOrder);
+        ToastAndroid.show(strings.order.cancelSuccess, ToastAndroid.SHORT);
       }
     } catch (e) {
       setIsError(true);

@@ -5,9 +5,8 @@ const basic = {
   gullGray: '#9EA7B5',
   transparent: 'transparent',
   mayGreen: '#3BAE4C',
-  modal: 'rgba(0, 0, 0, 0.85)',
+  modal: 'rgba(0, 0, 0, 0.9)',
   lightDark: '#423A55',
-  minorDark: '#7E798A',
 };
 
 export default {

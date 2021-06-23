@@ -9,7 +9,7 @@ import constants from '../../constants/constants';
 const Question = ({
   title, isOpen, setIsOpen, onPress,
 }) => {
-  const { theme, isDarkMode } = useContext(context);
+  const { theme } = useContext(context);
 
   const pressYes = () => {
     onPress();
@@ -48,20 +48,16 @@ const Question = ({
       fontSize: 15,
       color: theme.main,
     },
-    darkModal: {
-      borderWidth: 1,
-      borderColor: theme.main,
-    },
   });
 
   return (
     <>
       {isOpen
-        && !isDarkMode
+
         && <StatusBar barStyle={theme.statusBar} backgroundColor={theme.modal} />}
       <Modal animationType="none" transparent visible={isOpen}>
         <View style={styles.container}>
-          <View style={[styles.window, isDarkMode ? styles.darkModal : null]}>
+          <View style={styles.window}>
             <Text style={styles.title}>{title}</Text>
             <View style={styles.buttons}>
               <TouchableOpacity onPress={pressYes}>

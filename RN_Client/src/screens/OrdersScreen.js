@@ -63,8 +63,7 @@ const OrdersScreen = ({
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'space-between',
-      borderWidth: 2,
-      borderColor: theme.twilight,
+
       borderRadius: 15,
       paddingVertical: 5,
       paddingHorizontal: 12,
@@ -98,14 +97,18 @@ const OrdersScreen = ({
             <TouchableOpacity
               style={[
                 styles.switcher,
-                { backgroundColor: theme.lightDark }]}
+                {
+                  backgroundColor: theme.lightDark,
+                  borderWidth: 2,
+                  borderColor: theme.twilight,
+                }]}
               onPress={() => changeTheme(!isDarkMode)}
             >
               <View style={[
                 styles.switchButton,
                 {
                   marginRight: 10,
-                  backgroundColor: theme.minorDark,
+                  backgroundColor: theme.innerBackgroud,
                   borderColor: theme.background,
                 }]}
               />
@@ -120,7 +123,10 @@ const OrdersScreen = ({
             <TouchableOpacity
               style={[
                 styles.switcher,
-                { backgroundColor: theme.background }]}
+                {
+                  backgroundColor: theme.background,
+                  elevation: 3,
+                }]}
               onPress={() => changeTheme(!isDarkMode)}
             >
               <Icon

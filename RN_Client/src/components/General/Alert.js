@@ -9,7 +9,7 @@ import constants from '../../constants/constants';
 const Alert = ({
   title, success, isOpen, setIsOpen, showStatusBar = false,
 }) => {
-  const { theme, isDarkMode } = useContext(context);
+  const { theme } = useContext(context);
 
   const styles = StyleSheet.create({
     container: {
@@ -41,20 +41,16 @@ const Alert = ({
       color: theme.main,
       textAlign: 'center',
     },
-    darkModal: {
-      borderWidth: 1,
-      borderColor: theme.main,
-    },
   });
 
   return (
     <>
       {isOpen
-        && (!isDarkMode || showStatusBar)
+        && (showStatusBar)
         && <StatusBar barStyle={theme.statusBar} backgroundColor={theme.modal} />}
       <Modal animationType="none" transparent visible={isOpen}>
         <View style={styles.container}>
-          <View style={[styles.window, isDarkMode ? styles.darkModal : null]}>
+          <View style={styles.window}>
             <Text style={styles.text}>{title}</Text>
             <TouchableOpacity style={styles.button} onPress={() => setIsOpen(false)}>
               <Text style={styles.textButton}>

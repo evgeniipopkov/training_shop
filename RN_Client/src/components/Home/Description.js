@@ -48,13 +48,13 @@ const Description = ({
   const onPressAnimation = () => {
     Animated.timing(bottomValue, {
       toValue: down ? -heightLayout.current + MARGIN * 2 + SIZE_ICON + BEGIN_BOTTOM : BEGIN_BOTTOM,
-      duration: 500,
+      duration: 700,
       useNativeDriver: false,
     }).start();
 
     Animated.timing(heightImage, {
       toValue: down ? max : min,
-      duration: 500,
+      duration: 700,
       useNativeDriver: false,
     }).start();
 

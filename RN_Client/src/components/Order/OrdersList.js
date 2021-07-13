@@ -184,7 +184,7 @@ const OrdersList = ({
               }
             />
             <Question
-              title="Отменить заказ?"
+              title={strings.cancelOrder}
               isOpen={isQuestion}
               setIsOpen={setIsQuestion}
               onPress={deleteOrder}

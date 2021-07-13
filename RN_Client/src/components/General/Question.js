@@ -5,6 +5,7 @@ import {
 
 import context from '../../context/context';
 import constants from '../../constants/constants';
+import strings from '../../constants/strings';
 
 const Question = ({
   title, isOpen, setIsOpen, onPress,
@@ -52,19 +53,17 @@ const Question = ({
 
   return (
     <>
-      {isOpen
-
-        && <StatusBar barStyle={theme.statusBar} backgroundColor={theme.modal} />}
+      {isOpen && <StatusBar barStyle={theme.statusBar} backgroundColor={theme.modal} />}
       <Modal animationType="none" transparent visible={isOpen}>
         <View style={styles.container}>
           <View style={styles.window}>
             <Text style={styles.title}>{title}</Text>
             <View style={styles.buttons}>
               <TouchableOpacity onPress={pressYes}>
-                <Text style={[styles.text, { color: theme.mayGreen }]}>Да</Text>
+                <Text style={[styles.text, { color: theme.mayGreen }]}>{strings.yes}</Text>
               </TouchableOpacity>
               <TouchableOpacity style={styles.buttonNo} onPress={() => setIsOpen(false)}>
-                <Text style={[styles.text, { color: theme.neonCarrot }]}>Нет</Text>
+                <Text style={[styles.text, { color: theme.neonCarrot }]}>{strings.no}</Text>
               </TouchableOpacity>
             </View>
           </View>

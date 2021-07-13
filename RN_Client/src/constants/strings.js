@@ -52,4 +52,7 @@ export default {
   logout: 'Выход',
   error: 'Ошибка получения данных',
   refresh: 'Обновить',
+  yes: 'Да',
+  no: 'Нет',
+  cancelOrder: 'Отменить заказ?',
 };

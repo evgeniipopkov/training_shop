@@ -279,14 +279,14 @@ const AppNavigator = () => {
       justifyContent: 'center',
     },
     screen: {
-      height: '91%',
+      height: '92%',
     },
     tabBar: {
       borderTopLeftRadius: 30,
       borderTopRightRadius: 30,
       flexDirection: 'row',
       width: '100%',
-      height: '9%',
+      height: '8%',
       backgroundColor: theme.background,
       alignItems: 'center',
       justifyContent: 'space-around',

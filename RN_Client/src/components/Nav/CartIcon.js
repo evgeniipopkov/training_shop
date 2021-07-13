@@ -19,14 +19,14 @@ const CartIcon = ({ iconName, isFull = false }) => {
       right: -7,
       borderRadius: 15,
       backgroundColor: theme.neonCarrot,
-      height: 18,
-      width: 18,
+      height: 15,
+      width: 15,
       alignItems: 'center',
       justifyContent: 'center',
     },
     count: {
       fontFamily: constants.fontMainRegular,
-      fontSize: 12,
+      fontSize: 10,
       color: theme.background,
     },
   });
@@ -35,7 +35,7 @@ const CartIcon = ({ iconName, isFull = false }) => {
     <View>
       <Icon
         name={iconName}
-        size={28}
+        size={25}
         color={isFull ? theme.neonCarrot : theme.twilight}
       />
       {count

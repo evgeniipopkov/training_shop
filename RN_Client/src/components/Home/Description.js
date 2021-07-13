@@ -12,7 +12,7 @@ import constants from '../../constants/constants';
 import strings from '../../constants/strings';
 import utils from '../../helpers/utils';
 
-const MARGIN = 20;
+const MARGIN = 15;
 const BEGIN_BOTTOM = 5;
 const SIZE_ICON = 17;
 

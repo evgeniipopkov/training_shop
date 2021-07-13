@@ -65,10 +65,10 @@ const ProductListItem = ({
         </View>
       </View>
       <View style={styles.wrapperPrice}>
-        <Price price={price} fontSize={18} />
-        <Balance balance={balance} fontSize={14} />
+        <Price price={price} fontSize={17} />
+        <Balance balance={balance} fontSize={13} />
       </View>
-      <Name name={name} fontSize={15} />
+      <Name name={name} fontSize={14} />
     </TouchableOpacity>
   );
 };

@@ -34,7 +34,7 @@ const TabIcon = ({
     : (
       <Icon
         name={iconName}
-        size={28}
+        size={25}
         color={isFull ? theme.neonCarrot : theme.twilight}
       />
     ));

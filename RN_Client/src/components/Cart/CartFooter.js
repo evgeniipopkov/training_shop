@@ -60,7 +60,7 @@ const CartFooter = ({
     sum: {
       fontFamily: constants.fontMainBold,
       color: theme.main,
-      fontSize: 22,
+      fontSize: 21,
     },
   });
 
@@ -68,7 +68,7 @@ const CartFooter = ({
     <View style={styles.container}>
       <View style={styles.wrapper}>
         <Text style={styles.sum}>{strings.sum}</Text>
-        <Price price={sum} fontSize={22} />
+        <Price price={sum} fontSize={21} />
       </View>
       <Button
         onPress={postOrder}

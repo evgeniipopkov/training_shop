@@ -6,14 +6,9 @@ const headers = {
 };
 
 const request = async (route, method, data) => {
-  const config = {
-    method,
-    headers,
-  };
+  const config = { method, headers };
 
-  if (method === 'POST') {
-    config.body = JSON.stringify(data);
-  }
+  if (method === 'POST') { config.body = JSON.stringify(data); }
 
   const response = await fetch(BASE_URL + route, config);
   if (response.ok) {

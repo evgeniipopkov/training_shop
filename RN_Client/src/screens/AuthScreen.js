@@ -23,25 +23,13 @@ import context from '../context/context';
 const AuthScreen = ({ setStatusLoading }) => {
   const { theme, setLogin, setPassword } = useContext(context);
 
-  const [localLogin, setlocalLogin] = useState('');
-  const [localPassword, setlocalPassword] = useState('');
+  const [localLogin, setLocalLogin] = useState('');
+  const [localPassword, setLocalPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [isValidLogin, setIsValidLogin] = useState(true);
   const [isValidPassword, setIsValidPassword] = useState(true);
   const [isError, setIsError] = useState(false);
   const [error, setError] = useState('');
-
-  const isValid = () => {
-    setIsValidLogin(Boolean(localLogin.trim()));
-    setIsValidPassword(Boolean(localPassword.trim()));
-    return localLogin.trim() && localPassword.trim();
-  };
-
-  const resetValid = () => {
-    Keyboard.dismiss();
-    setIsValidLogin(true);
-    setIsValidPassword(true);
-  };
 
   const inputs = [
     {
@@ -51,7 +39,8 @@ const AuthScreen = ({ setStatusLoading }) => {
       secureTextEntry: false,
       placeholder: strings.auth.login,
       isValid: isValidLogin,
-      onChangeText: setlocalLogin,
+      setIsValid: setIsValidLogin,
+      onChangeText: setLocalLogin,
     },
     {
       key: '1',
@@ -60,9 +49,26 @@ const AuthScreen = ({ setStatusLoading }) => {
       secureTextEntry: true,
       placeholder: strings.auth.password,
       isValid: isValidPassword,
-      onChangeText: setlocalPassword,
+      setIsValid: setIsValidPassword,
+      onChangeText: setLocalPassword,
     },
   ];
+
+  const isValid = () => {
+    const validLogin = Boolean(localLogin.trim());
+    const validPassword = Boolean(localPassword.trim());
+
+    setIsValidLogin(validLogin);
+    setIsValidPassword(validPassword);
+
+    return validLogin && validPassword;
+  };
+
+  const resetValid = () => {
+    Keyboard.dismiss();
+    setIsValidLogin(true);
+    setIsValidPassword(true);
+  };
 
   const auth = async () => {
     try {
@@ -83,11 +89,10 @@ const AuthScreen = ({ setStatusLoading }) => {
 
   const onPress = () => {
     Keyboard.dismiss();
+    setIsLoading(true);
     setTimeout(() => {
-      if (isValid()) {
-        setIsLoading(true);
-        auth();
-      }
+      if (isValid()) auth();
+      else setIsLoading(false);
     }, 100);
   };
 
@@ -154,6 +159,7 @@ const AuthScreen = ({ setStatusLoading }) => {
                   value={item.value}
                   autoCompleteType={item.autoCompleteType}
                   isValid={item.isValid}
+                  setIsValid={item.setIsValid}
                   onChangeText={item.onChangeText}
                   placeholder={item.placeholder}
                   secureTextEntry={item.secureTextEntry}
@@ -175,7 +181,7 @@ const AuthScreen = ({ setStatusLoading }) => {
           </View>
         </TouchableWithoutFeedback>
       </KeyboardAvoidingView>
-      <Alert title={error} isOpen={isError} setIsOpen={setIsError} />
+      <Alert title={error} isOpen={isError} setIsOpen={setIsError} showStatusBar />
     </>
   );
 };

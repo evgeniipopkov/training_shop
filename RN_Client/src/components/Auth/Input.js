@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import {
   TextInput, Keyboard, StyleSheet, View, TouchableOpacity,
 } from 'react-native';
@@ -10,6 +10,7 @@ import constants from '../../constants/constants';
 
 const Input = ({
   isValid,
+  setIsValid,
   placeholder,
   value,
   autoCompleteType,
@@ -17,25 +18,7 @@ const Input = ({
   secureTextEntry,
 }) => {
   const { theme } = useContext(context);
-
   const [showPassword, setShowPassword] = useState(false);
-  const [currentPlaceholder, setPlaceholder] = useState(placeholder);
-  const [currentPlaceholderColor, setPlaceholderColor] = useState(theme.twilight);
-  const [currentStyle, setStyle] = useState(null);
-
-  const setState = (style, newPlaceholderColor, newPlaceholder = '') => {
-    setStyle(style);
-    setPlaceholder(newPlaceholder || placeholder);
-    setPlaceholderColor(newPlaceholderColor);
-  };
-
-  useEffect(() => {
-    if (!isValid) {
-      setState(styles.errorInput, theme.neonCarrot, strings.auth.validateInput);
-    } else {
-      setState(null, theme.twilight);
-    }
-  }, [isValid]);
 
   const styles = StyleSheet.create({
     input: {
@@ -44,17 +27,9 @@ const Input = ({
       fontFamily: constants.fontMainRegular,
       fontSize: 16,
       marginBottom: 10,
-      borderBottomColor: theme.twilight,
-      color: theme.twilight,
-      paddingVertical: 10,
-    },
-    focusedInput: {
-      borderBottomColor: theme.main,
+      borderBottomColor: isValid ? theme.twilight : theme.neonCarrot,
       color: theme.main,
-    },
-    errorInput: {
-      borderBottomColor: theme.neonCarrot,
-      color: theme.neonCarrot,
+      paddingVertical: 10,
     },
     eye: {
       position: 'absolute',
@@ -70,13 +45,12 @@ const Input = ({
       secureTextEntry={secure}
       autoCapitalize="none"
       autoCorrect={false}
-      style={[styles.input, currentStyle]}
-      placeholder={currentPlaceholder}
-      placeholderTextColor={currentPlaceholderColor}
+      style={styles.input}
+      placeholder={isValid ? placeholder : strings.auth.validateInput}
+      placeholderTextColor={isValid ? theme.twilight : theme.neonCarrot}
       onChangeText={(text) => onChangeText(text)}
       onSubmitEditing={Keyboard.dismiss}
-      onFocus={() => setState(styles.focusedInput, theme.main)}
-      onBlur={() => setState(null, theme.twilight)}
+      onFocus={() => !isValid && setIsValid(true)}
     />
   );
 
